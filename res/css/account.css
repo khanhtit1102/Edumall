@@ -1,0 +1,50 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+main .profile{
+	margin-top: -8px;
+}
+main .profile .nav.nav-tabs{
+	display: flex;
+	justify-content: space-between;
+	background-color: #36494E;
+	padding: 10px 0px;
+}
+main .profile .nav.nav-tabs li a{
+	color: #fff;
+	background: #263336;
+    border-radius: 20px;
+    border-color: #eee #eee #ddd;
+}
+main .profile .nav.nav-tabs li a:hover{
+    background-color: #f8f8f8;
+    color: #263336;
+}
+main .profile .nav.nav-tabs .active a{
+    background-color: #f8f8f8;
+    color: #263336;
+}
+main .tab-content{
+	padding-top: 10px;
+	padding-bottom: 30px;
+	border-radius: 10px;
+	background-color: #f8f8f8;
+}
+main .tab-content .avatar{
+	margin-top: 76px;
+}
+main .tab-content .avatar img{
+	width: 140px;
+	height: 140px;
+	display: flex;
+	align-items: center;
+	border: 1px solid #afafaf;
+	border-radius: 50%;
+}
+main .tab-content #mycourse{
+	
+}
+main .tab-content #mycourse{
+
+}

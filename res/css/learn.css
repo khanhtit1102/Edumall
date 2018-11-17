@@ -1,0 +1,15 @@
+.overflow{
+	overflow-y: scroll;
+	height: 175px;
+}
+.hiencmt{
+	border: 1px solid #ccc;
+	margin-bottom: 10px;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-top: 2px;
+}
+.hiencmt .infocmt{
+	font-weight: bold;
+	color: blue;
+}

@@ -1,0 +1,260 @@
+*{
+	padding: 0;
+	margin: 0;
+	text-decoration: none;
+}
+body{
+	/*background-color: #f4f3f2;*/
+	background-repeat: repeat;
+	background-image: url('../imgs/bg.png');
+	background-position: top center; 
+	background-attachment: fixed;	
+}
+header .navbar{
+	box-shadow: 0px 5px 20px #a9a9a9;
+}
+header .container .navbar-header img{
+	height: 33px;
+	margin-top: -6px;
+    margin-right: -10px;
+}
+header .form-control.search{
+	width: 400px;
+	background: transparent;
+}
+main .header-page{
+	position: relative;
+	height: 350px;
+	background-image: linear-gradient(30deg, rgba(27,57,99,0.5) 20%, rgba(179,41,46,0.5) 87%),url('../imgs/bg-header.jpg');
+	background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;	
+	color: white;
+}
+main .header-page hr{
+    border-top: solid 4px #D41701;
+    width: 50%;
+    margin: 15px 0;
+}
+main .header-page .header-category .category{
+	color: white;
+	width: 170px;
+	height: 100px;
+	background-color: rgba(0,0,0,0.1);
+	margin-bottom: 20px;
+	text-align: center;
+	transition: 0.5s;
+}
+main .header-page .header-category .category.blue:hover{
+	background-color: #44c0d9;
+}
+main .header-page .header-category .category.cay:hover{
+	background-color: #4c9e3b;
+}
+main .header-page .header-category .category.hong:hover{
+	background-color: #e7428e;
+}
+main .header-page .header-category .category.vang:hover{
+	background-color: #ffb10f;
+}
+main .header-page .header-category .category.cam:hover{
+	background-color: #ff7903;
+}
+main .header-page .header-category .category.do:hover{
+	background-color: #f24733;
+}
+main .header-page .header-category .category.tim:hover{
+	background-color: #8958e9;
+}
+main .header-page .header-category .category.lam:hover{
+	background-color: #17b99f;
+}
+main .header-page .container-fluid .row.container{
+	position: absolute;
+	top: 80px;
+	left: 60px
+}
+main .topic .title-topic{
+	text-align: center;
+}
+main .topic hr{
+	border-top: solid 4px #D41701;
+    margin: 15px 0;
+}
+main .topic .newest-topic{
+}
+main .topic .newest-topic .thumbnail{
+	position: relative;
+	width: 290px;
+	height: 434px;
+	padding-bottom: 200px;
+	box-shadow: -5px 5px 10px #888888;
+	transition: 0.5s;
+}
+main .topic .newest-topic .thumbnail:hover{
+	box-shadow: 5px 5px 10px #888888;
+}
+main .topic .newest-topic .thumbnail .btn{
+	position: absolute;
+    left: 15px;
+    bottom: 10px;
+    width: 89%;
+}
+main .topic .newest-topic .thumbnail .caption{
+
+}
+main .topic .newest-topic .row.col-md-12{
+	padding-bottom: 80px;
+}
+main .banner{
+	padding-bottom: 150px;
+}
+main .banner img{
+	top: 0px;
+	box-shadow: 2px 2px 30px #888888;
+}
+main .banner img:hover{
+	box-shadow: 10px 10px 10px #888888;
+	transition: 0.4s;
+}
+main .banner .text-banner:hover{
+	box-shadow: 10px 10px 10px #888888;
+	transition: 0.4s;
+}
+main .banner .text-banner{
+	position: absolute;
+	top: 0px;
+	text-align: center;
+	width: 360px;
+	height: 150px;
+}
+main .banner .text-banner h1{
+	font-size: 50px;
+	font-weight: bolder;
+}
+main .banner .text-banner h3{
+	font-weight: bold;
+	color: #464646;
+}
+main .register-index{
+	text-align: center;
+}
+main .register-index .trai{
+	height: 500px;
+	box-shadow: 5px 5px 5px #888888;
+	background: linear-gradient(30deg, rgba(27,57,99,0.7) 20%, rgba(179,41,46,0.7) 87%);
+	color: white;
+}
+main .register-index .trai legend{
+	color: white;
+	font-size: 30px;
+}
+main .register-index .trai input{
+	width: 75%;
+	height: 40px;
+}
+main .register-index .trai .input-group{
+	margin-left: 100px;
+	height: 40px;
+}
+main .register-index .trai .input-group .form-control{
+	background-color: #eee;
+}
+main .register-index .trai .btn{
+	width: 63%;
+	font-size: 30px;
+	font-weight: bold;
+	color: white;
+	background-color: #c7c7c7;
+}
+main .register-index .phai{
+	background-image: linear-gradient(30deg, rgba(27,57,99,0.7) 20%, rgba(179,41,46,0.7) 87%),url('../imgs/img-login.png');
+	background-repeat: no-repeat;
+	height: 500px;
+	box-shadow: 5px 5px 5px #888888;
+}
+main .register-index .phai img{
+	height: 140px;
+	margin-top: 100px;
+}
+main .register-index .phai .login{
+	color: white;
+	position: absolute;
+    bottom: 80px;
+    left: 90px;
+}
+main .register-index .phai .login .btn-login-index{
+	font-size: 22px;
+    font-weight: bold;
+}
+main .all-course{
+
+}
+main .all-course .btn.btn-danger{
+	width: 40%;
+	height: 80px;    
+	font-size: xx-large;
+    font-weight: bolder;
+}
+main .tuyen-dung{
+	background-image: linear-gradient(215deg, rgba(27,57,99,0.5) 20%, rgba(179,41,46,0.5) 87%),url('../imgs/bg-tuyendung.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+    background-position: center center;
+	height: 500px;
+	color: white;
+}
+main .tuyen-dung .trai{
+	height: 500px;
+	background-image: url('../imgs/gv.png');
+	background-repeat: no-repeat;
+	background-position: center bottom;
+}
+main .tuyen-dung .phai{
+	margin-top: 120px;
+}
+main .tuyen-dung .phai h2{
+	font-size: 30px;
+	font-weight: 300;
+}
+main .tuyen-dung .phai h1{
+	font-size: 50px;
+	font-weight: 500;
+}
+main .tuyen-dung .phai .btn{
+	width: 230px;
+	height: 50px;
+	font-size: 20px;
+	font-weight: 600;
+	margin-top: 50px;
+}
+footer{
+	padding-top: 40px;
+	background-color: #f8f8f8;
+	border-top: 1px solid #e7e7e7;
+	margin-top: 100px;
+}
+footer .trai{
+
+}
+footer .trai .logo{
+	width: 50%;
+}
+footer .giua{
+
+}
+footer .giua ul{
+	list-style: none;
+}
+footer .giua a{
+	color: #464646;
+}
+footer .giua a:hover{
+	text-decoration: none;
+}
+footer .phai{
+	background-color: #f8f8f8;
+}
+footer .phai .app-mobile img{
+	height: 40px;
+}

@@ -1,0 +1,11 @@
+main .container .row h2{
+	color: red;
+	font-weight: bold;
+}
+main .container .list{
+	overflow-y: scroll;
+    height: 400px;
+}
+main .container table thead th, td{
+	text-align: center;
+}

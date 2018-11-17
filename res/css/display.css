@@ -1,0 +1,53 @@
+main .container .row .trai .thumbnail img{
+	width: 100%;
+	height: 100%;
+}
+main .container .row .trai .thumbnail{
+	box-shadow: -5px 5px 15px #888888;
+}
+main .container .row .trai .author{
+	background-color: white;
+	box-shadow: -5px 5px 15px #888888;
+	padding: 10px;
+}
+main .container .row .trai .author .avatar-author img{
+	border-radius: 50%;
+	height: 100px;
+	float: left;
+}
+main .container .row .trai .author .info-author{
+	padding-left: 110px;
+}
+main .container .row .trai .author .info-author h3{
+	margin-top: 10px;
+	color: #3B8FC7;
+}
+main .container .row .trai .content{
+	background-color: white;
+	box-shadow: -5px 5px 15px #888888;
+	padding: 10px;
+}
+
+main .container .row .phai{
+	background-color: white;
+	box-shadow: -5px 5px 15px #888888;
+	padding: 20px;
+	position: fixed;
+	right: 60px;
+	top: 180px;
+	width: 390px;
+}
+main .container .row .phai h3{
+	margin: 0px;
+	padding-left: 20px;
+	font-weight: 700;
+	color: #0087ff;
+}
+main .container .row .phai .btn-danger{
+	width: 100%;
+	font-size: 30px;
+	background: linear-gradient(#F04C51 27%, #ED2E34 100%);
+}
+main .container .row .phai .btn-danger:hover{
+	background: linear-gradient(#F04C51 100%, #ED2E34 27%);
+}

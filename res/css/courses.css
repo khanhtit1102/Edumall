@@ -1,0 +1,49 @@
+main .container .row h1{
+	color: #ff4343;
+	font-weight: 600;
+	font-family: serif;
+}
+main .container .row hr{
+	border: 1px solid #7f7f7f;
+
+}
+main .container .course .thumbnail{
+	height: 300px;
+	width: 253px;
+	box-shadow: 5px 5px 20px #888888;
+	position: relative;
+}
+main .container .course .thumbnail:hover{
+	box-shadow: 10px 10px 20px #888888;
+}
+main .container .course .thumbnail img{
+	height: 136px;
+	width: 243px;
+}
+main .container .course .thumbnail .caption a{
+	color: #333;
+}
+main .container .course .thumbnail .caption a:hover{
+	text-decoration: none;
+}
+main .container .course .thumbnail .caption h3{
+	margin-top: 0px;
+	font-weight: bold;
+	font-size: 20px;
+}
+main .container .course .thumbnail .caption .author{
+	position: absolute;
+	bottom: 30px;
+	color: #969696;
+}
+main .container .course .thumbnail .caption .gia{
+	color: #1EB0BB;
+    font-weight: bolder;
+    font-size: 19px;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+main .container .row .theloai .nav{
+	border: 1px solid #bfbfbf;
+}

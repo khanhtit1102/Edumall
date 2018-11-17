@@ -1,0 +1,7 @@
+main .container .row h2{
+	color: red;
+	font-weight: bold;
+}
+main .container .row .trai img{
+	width: 70px;
+}

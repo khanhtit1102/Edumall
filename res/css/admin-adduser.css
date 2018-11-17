@@ -1,0 +1,7 @@
+main .container h2{
+	color: red;
+	font-weight: bold;
+}
+main .container .trai button{
+	width: 100%;
+}
