@@ -15,6 +15,14 @@ main .container .row .with-email .form-group input{
 	background-color: #e9edef;
 	margin-bottom: 10px;
 }
+main .container .row .with-email .form-group select{
+	padding-left: 25px;
+	height: 50px;
+	width: 80%;
+	border-radius: 25px;
+	background-color: #e9edef;
+	margin-bottom: 10px;
+}
 main .container .row .with-email .form-group label{
 	font-weight: normal;
 	font-size: 20px;

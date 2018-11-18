@@ -99,6 +99,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST) {
                 <div class="form-group">
                     <label for="database">CodeIgniter Version</label>
                     <select class="form-control" id="template" name="template" />
+                        <option value="2">2</option>
                         <option value="3">3</option>
                     </select>
                     <p class="help-block">Your CodeIgniter Version.</p>

@@ -47,7 +47,7 @@ class M_Auth extends CI_Model
 		}
 		return $error;
 	}
-	public function register($username ,$email, $pass, $date, $code)
+	public function register($username, $email, $pass, $type_account, $job_user, $date, $code)
 	{
 		$sql = "SELECT count(id_user) FROM user WHERE email_user = '$email'";
 		$query = $this->db->query($sql);
@@ -59,7 +59,7 @@ class M_Auth extends CI_Model
 			$this->session->set_userdata('error', 'Tài khoản đã bị trùng! Vui lòng nhập lại!');
 		}
 		else{
-			$sql = "INSERT INTO user(name_user, pass_user, email_user, created_date, code_user) VALUES ('$username', '$pass', '$email', '$date', '$code')";
+			$sql = "INSERT INTO user(name_user, pass_user, email_user, permission_user, job_user, created_date, code_user) VALUES ('$username', '$pass', '$email', '$type_account', '$job_user', '$date', '$code')";
 			$query = $this->db->query($sql);
 		}
 	}
@@ -74,6 +74,27 @@ class M_Auth extends CI_Model
 		}
 		if ($count == 1) {
 			$this->db->set('permission_user', 1);
+			$this->db->set('code_user', '');
+			$this->db->where('email_user', $email);
+			$this->db->update('user');
+			$result = 1;
+		}
+		else{
+			$result = 0;
+		}
+		return $result;
+	}
+	public function active_teacher($email, $code)
+	{
+		# Kiểm tra email và code
+		$sql = "SELECT count(email_user) AS count FROM user WHERE email_user = '$email' AND code_user = '$code' AND permission_user = '2'";
+		$query = $this->db->query($sql);
+		foreach ($query->result_array() as $row)
+		{
+			$count = $row['count'];
+		}
+		if ($count == 1) {
+			$this->db->set('permission_user', 2);
 			$this->db->set('code_user', '');
 			$this->db->where('email_user', $email);
 			$this->db->update('user');

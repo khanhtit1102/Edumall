@@ -132,7 +132,6 @@ class Auth extends CI_Controller {
 				$this->load->view('v_auth');
 				$view = new V_Auth();
 				$view->show_register();
-				
 			}
 			else{
 				$this->register_submit();
@@ -148,26 +147,31 @@ class Auth extends CI_Controller {
 			$username = $this->input->post('username');
 			$email = $this->input->post('email');
 			$pass = md5($this->input->post('pass'));
+			$type_account = $this->input->post('type_account');
+			$job_user = $this->input->post('job');
 			$date = date("Y-m-d");
 			$code = $this->generateRandomString();
 
 			// Tạo dữ liệu gửi Email
 
-			$link = base_url('auth/request/').'?type=active&email='.$email.'&code='.$code;
+			$link = base_url('auth/request').'?type=active&email='.$email.'&code='.$code;
+			if ($type_account == 2) {
+				$link = base_url('auth/request').'?type=active_teacher&email='.$email.'&code='.$code;
+			}
 			$message = 'Xin chào '.$username.' !<br>Email của bạn đã được sử dụng để kích hoạt tài khoản trên hệ thống Edumall.<br>Nếu bạn thực hiện việc này, hãy bấm vào <a href="'.$link.'">đây</a> để kích hoạt!<br>Hoặc đường liên kết sau: '.$link.'<br>- Nếu bạn không thực hiện việc này, hãy bỏ qua thư của chúng tôi.<br>Cảm ơn bạn!';
 			$result = $this->sendMail($email, $subject, $message);
-			if ($result == 1) {
-				$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>Hãy kiểm tra lại hộp thư đến trong Email để xác nhận!');
-			}
-			if ($result == 0) {
-				$this->session->set_flashdata('error', '<b>Lỗi gửi Email!</b><br>Đây là lỗi của chúng tôi.<br>Liên hệ <a href="mailto:khanhtit113@gmail.com">Admin</a> để báo lỗi.');
-			}
-			
+
 			// Đã gửi Email
 
+			if ($result == 1) {
+				$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>Hãy kiểm tra lại hộp thư đến trong Email để xác nhận!<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
+			}
+			if ($result == 0) {
+				$this->session->set_flashdata('error', '<b>Lỗi gửi Email!</b><br>Đây là lỗi của chúng tôi.<br>Liên hệ <a href="mailto:khanhtit113@gmail.com">Admin</a> để báo lỗi.<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
+			}
 			$this->load->model('m_auth');
 			$model = new M_Auth();
-			$model->register($username, $email, $pass, $date, $code);
+			$model->register($username, $email, $pass, $type_account, $job_user, $date, $code);
 		}
 		redirect(base_url('auth/register'));
 	}
@@ -200,7 +204,17 @@ class Auth extends CI_Controller {
 				else{
 					$this->session->set_flashdata('error', 'Kích hoạt tài khoản không thành công hoặc bạn đã kích hoạt trước đó!');
 				}
-			redirect(base_url('auth'));
+				redirect(base_url('auth/login'));
+			}
+			if ($type == 'active_teacher') {
+				$result = $model->active_teacher($email, $code);
+				if ($result == 1) {
+					$this->session->set_flashdata('error', 'Kích hoạt tài khoản thành công!');
+				}
+				else{
+					$this->session->set_flashdata('error', 'Kích hoạt tài khoản không thành công hoặc bạn đã kích hoạt trước đó!');
+				}
+				redirect(base_url('auth/login'));
 			}
 			if ($type == 'forgot_password') {
 				$result = $model->check_code($email, $code);
@@ -209,14 +223,15 @@ class Auth extends CI_Controller {
 						$newpass = md5($this->input->post('newpass'));
 						$model->reset_pass($email, $newpass, $code);
 						$this->session->set_flashdata('error', 'Mật khẩu của bạn đã được đổi!');
-						redirect(base_url('auth'));
+						redirect(base_url('auth/login'));
 					}
 					$this->load->view('v_auth');
 					$view = new V_Auth();
 					$view->reset_pass();
 				}
 				else{
-					redirect(base_url('auth'));
+					$this->session->set_flashdata('error', 'Thay đổi mật khẩu thất bại hoặc sai mã bí mật!');
+					redirect(base_url('auth/login'));
 				}
 			}
 		}
@@ -240,20 +255,22 @@ class Auth extends CI_Controller {
 				$link = base_url('auth/request/').'?type=forgot_password&email='.$email.'&code='.$code;
 				$message = 'Xin chào !<br>Bạn đã yêu cầu cấp lại mật khẩu tài khoản của bạn trên hệ thống Edumall.<br>Nếu bạn thực hiện việc này, hãy bấm vào <a href="'.$link.'">đây</a> để đặt lại mật khẩu!<br>Hoặc đường liên kết sau: '.$link.'<br>- Nếu bạn không thực hiện việc này, hãy bỏ qua thư của chúng tôi.<br>Cảm ơn bạn!';
 				$result_email = $this->sendMail($email, $subject, $message);
+
+				// Đã gửi Email
+
 				if ($result_email == 1) {
-					$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>Hãy kiểm tra lại hộp thư đến trong Email để xác nhận!');
+					$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>Hãy kiểm tra lại hộp thư đến trong Email để xác nhận!<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
 				}
 				if ($result_email == 0) {
-					$this->session->set_flashdata('error', '<b>Lỗi gửi Email!</b><br>Đây là lỗi của chúng tôi.<br>Liên hệ <a href="mailto:khanhtit113@gmail.com">Admin</a> để báo lỗi.');
+					$this->session->set_flashdata('error', '<b>Lỗi gửi Email!</b><br>Đây là lỗi của chúng tôi.<br>Liên hệ <a href="mailto:khanhtit113@gmail.com">Admin</a> để báo lỗi.<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
 				}
-				// Đã gửi Email
 				$model->set_code($email, $code);
 			}
 			else{
 				$this->session->set_flashdata('error', '<b>Lỗi!</b><br>Email bạn nhập vào không có trong hệ thống của chúng tôi!');
 			}
 		}
-		redirect(base_url('auth'));
+		redirect(base_url('auth/login'));
 	}
 	private function sendMail($email, $subject, $message)
 	{
@@ -262,10 +279,11 @@ class Auth extends CI_Controller {
 			'smtp_host' => 'ssl://smtp.googlemail.com',
 			'smtp_port' => 465,
   			'smtp_user' => 'titkhanh0@gmail.com',
-  			'smtp_pass' => 'rghgevolbxsfjynh',
+  			'smtp_pass' => '',
   			'mailtype' => 'html',
   			'charset' => 'UTF-8',
   			'wordwrap' => TRUE
+  			// Pass App: rghgevolbxsfjynh
   		);
 		
 		$this->load->library('email', $config);

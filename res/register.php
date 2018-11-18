@@ -26,9 +26,14 @@
 								<ul class="error" style="color: red;"><?php echo validation_errors('- '); if (isset($_SESSION['error'])) {
 									echo '- '.$_SESSION['error'];
 								} ?></ul>
-								<input type="text" class="form-control" name="username" id="" placeholder="Họ và tên" autocomplete="off">
+								<input type="text" class="form-control" name="username" id="username" placeholder="Họ và tên" autocomplete="off">
 								<input type="text" class="form-control" name="email" id="email" placeholder="Email" autocomplete="off">
 								<input type="password" class="form-control" name="pass" id="pass" placeholder="Mật khẩu">
+								<select name="type_account" class="form-control" id="type_account" onchange="change_option()">
+									<option value="0" selected="">Học viên</option>
+									<option value="2">Giảng viên</option>
+								</select>
+								<input type="text" class="form-control hidden" name="job" id="job" placeholder="Công việc hiện tại" autocomplete="off">
 							</div>
 							<div id="btnsubmit">
 								<button type="submit" class="btn btn-danger" name="register" value="register">Đăng Ký</button>
@@ -51,6 +56,18 @@
 		<?php include "includes/footer.php" ?>
 	</footer>
 	<!-- Script -->
+	<script>
+		function change_option() {
+			var x = document.getElementById("type_account").value;
+			var job = document.getElementById('job');
+			if (x == '2') {
+				job.classList.remove("hidden");
+			}
+			else {
+				job.classList.add("hidden");
+			}
+		}
+	</script>
 	<script src="../res/js/test.js"></script>
 	<script src="../res/bs/js/jquery.js"></script>
 	<script src="../res/bs/js/bootstrap.min.js"></script>
