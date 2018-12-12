@@ -1,4 +1,7 @@
-<form action="" method="POST" role="form">
+<?php if (isset($_SESSION['error'])) {
+	echo '<div class="alert alert-success" role="alert">'.$_SESSION['error'].'</div>';
+} ?>
+<form action="" method="POST" role="form" enctype="multipart/form-data">
 	<legend>Thêm mới khóa học</legend>
 	<div class="form-group">
 		<label for="">Tên Khoá học</label>
@@ -45,10 +48,10 @@
 		<label for="">Link khóa học</label>
 		<input type="text" class="form-control" name="playlist_key" placeholder="Link khóa học">
 	</div>
-	<!-- <div class="form-group">
+	<div class="form-group">
 		<label for="">Ảnh</label>
-		<input type="file" name="thumb_cs">
-	</div> -->
+		<input type="file" class="form-control" name="thumb_cs" accept=".jpg, .png, .jpeg">
+	</div>
 	<button type="submit" name="add_course" value="submit" class="btn btn-primary" name="btn-submit">Thêm mới khóa học</button>
 </form>
 <script src="//cdn.ckeditor.com/4.10.1/standard/ckeditor.js"></script>

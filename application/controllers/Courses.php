@@ -21,7 +21,7 @@ class Courses extends CI_Controller {
 				$filter = $name.', '.$price;
 			}
 			else{
-				$filter = $name.$price;
+				$filter = 'id_cs ASC';
 			}
 			$this->session->set_userdata("filter", "$filter");
 		}
@@ -29,7 +29,7 @@ class Courses extends CI_Controller {
 			if ($this->session->has_userdata('filter')) {
 				$filter = $this->session->userdata('filter');
 			} else {
-				$filter = '';
+				$filter = 'id_cs ASC';
 			}
 		}
 		// Tìm kiếm

@@ -1,8 +1,13 @@
 <h1>Quản lý khóa học</h1>
 <hr>
+<?php if (isset($_SESSION['error'])) {
+	echo '<div class="alert alert-success" role="alert">'.$_SESSION['error'].'</div>';
+} ?>
+<form action="" method="POST" role="form" onsubmit="return delete_confirm()">
 <table id="example" class="table table-hover table-bordered" style="width:100%">
 	<thead>
 		<tr>
+			<th align="center"><input type="checkbox" id="select_all" value=""/></th>
 			<th>Tên khóa học</th>
 			<th>Giảng viên</th>
 			<th>Giá tiền</th>
@@ -16,6 +21,7 @@
 		foreach ($result as $key => $value) {
 	?>
 		<tr>
+			<td><input type="checkbox" name="id[]" class="checkbox" value="<?php echo $value['id_cs']; ?>"></td>
 			<td><?php echo $value['ten_cs']; ?></td>
 			<td><?php echo $value['name_user']; ?></td>
 			<td><?php echo $value['gia_cs']; ?>đ</td>
@@ -66,6 +72,7 @@
 	</tbody>
 	<tfoot>
 		<tr>
+			<th><button type="submit" name="delete" value="submit" class="btn btn-danger">Xóa</button></th>
 			<th>Tên khóa học</th>
 			<th>Giảng viên</th>
 			<th>Giá tiền</th>
@@ -75,3 +82,4 @@
 		</tr>
 	</tfoot>
 </table>
+</form>

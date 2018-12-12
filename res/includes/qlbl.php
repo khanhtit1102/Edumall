@@ -1,5 +1,8 @@
-<h1>Quản lý thành viên</h1>
+<h1>Quản lý bình luận</h1>
 <hr>
+<?php if (isset($_SESSION['error'])) {
+	echo '<div class="alert alert-success" role="alert">'.$_SESSION['error'].'</div>';
+} ?>
 <table id="example" class="table table-hover table-bordered" style="width:100%">
 	<thead>
 		<tr>
@@ -24,7 +27,7 @@
 			<td><?php echo $value['nd_cmt']; ?></td>
 			<td><?php echo $value['ngay_cmt']; ?></td>
 			<td>
-				<a class="btn btn-primary" href=""><i class="fa fa-edit"></i></a>
+				<!-- <a class="btn btn-primary" href=""><i class="fa fa-check"></i></a> -->
 				<a class="btn btn-danger" href="delete_cmt/<?php echo $value['id_cmt']; ?>" onclick="return confirm('Bạn thực sự muốn xóa bình luận này?')"><i class="fa fa-times"></i></a>
 			</td>
 		</tr>

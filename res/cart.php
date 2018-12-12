@@ -70,7 +70,7 @@
 						</thead>
 					</table>
 					<?php 
-						if ($price != 0) {
+						if ($price >= 0 && $count != 0) {
 						
 					 ?>
 					<a href="cart?action=buy" class="btn btn-success">Mua Khoá Học</a><br><br>

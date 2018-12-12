@@ -9,13 +9,18 @@ class M_Courses extends CI_Model
     public function showall($limit, $keyword, $filter)
     {
     	$offset=$this->uri->segment(2);
-        // SELECT id_cs,thumb_cs,ten_cs,name_user,gia_cs FROM course, user WHERE course.id_user = user.id_user
+        /*
+        SELECT id_cs,thumb_cs,ten_cs,name_user,gia_cs 
+        FROM course, user 
+        WHERE course.id_user = user.id_user 
+        AND (course.ten_cs LIKE '%%' OR user.name_user LIKE '%%' OR course.id_cate LIKE '%%') 
+        ORDER BY `course`.`id_cs` ASC 
+        */
     	$this->db->select('id_cs,thumb_cs,ten_cs,name_user,gia_cs');                  
         $this->db->from('course, user');
         $this->db->where('course.id_user = user.id_user');
-		$this->db->or_like('ten_cs', $keyword);
-        $this->db->or_like('name_user', $keyword);
-        $this->db->or_like('id_cate', $keyword);
+        $custom = "(course.ten_cs LIKE '%$keyword%' OR user.name_user LIKE '%$keyword%' OR course.id_cate LIKE '%$keyword%')";
+        $this->db->where($custom);
 		$this->db->order_by($filter);          
 		$this->db->limit($limit, $offset);
 

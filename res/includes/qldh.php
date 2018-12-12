@@ -1,4 +1,4 @@
-<h1>Quản lý thành viên</h1>
+<h1>Quản lý đơn hàng</h1>
 <hr>
 <table id="example" class="table table-hover table-bordered" style="width:100%">
 	<thead>
@@ -22,7 +22,6 @@
 			<td><?php echo $value['gia_cs']; ?></td>
 			<td><?php echo $value['date_own']; ?></td>
 			<td>
-				<a class="btn btn-primary" href=""><i class="fa fa-edit"></i></a>
 				<a class="btn btn-danger" href="" onclick="return confirm('Bạn thực sự muốn xóa đơn hàng này?')"><i class="fa fa-times"></i></a>
 			</td>
 		</tr>

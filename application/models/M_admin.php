@@ -44,9 +44,18 @@ class M_Admin extends CI_Model
 	public function delete_user($id)
 	{
 		$this->db->where('id_user', $id)->delete('adminchat');
+		$this->db->where('id_user', $id)->delete('teacherchat');
 		$this->db->where('id_user', $id)->delete('cart');
 		$this->db->where('id_user', $id)->delete('own');
 		$this->db->where('id_user', $id)->delete('user');
+	}
+	public function multi_del_user($idToStr)
+	{
+		$this->db->where_in('id_user', $idToStr)->delete('adminchat');
+		$this->db->where_in('id_user', $idToStr)->delete('teacherchat');
+		$this->db->where_in('id_user', $idToStr)->delete('cart');
+		$this->db->where_in('id_user', $idToStr)->delete('own');
+		$this->db->where_in('id_user', $idToStr)->delete('user');
 	}
 	public function show_one_user($id)
 	{
@@ -56,7 +65,11 @@ class M_Admin extends CI_Model
 	}
 	public function show_one_course($id)
 	{
-		$this->db->from('course')->where('id_cs', $id);
+		// SELECT course.*, user.name_user FROM course, user WHERE course.id_user = user.id_user
+		$this->db->select('course.*, user.name_user');
+		$this->db->from('course, user');
+		$this->db->where('course.id_user = user.id_user');
+		$this->db->where('id_cs', $id);
 		$query = $this->db->get();
 		return $query->result_array();
 	}
@@ -82,6 +95,13 @@ class M_Admin extends CI_Model
 		$this->db->where('id_cs', $id)->delete('own');
 		$this->db->where('id_cs', $id)->delete('cart');
 		$this->db->where('id_cs', $id)->delete('course');
+	}
+	public function multi_del_course($idToStr)
+	{
+		$this->db->where_in('id_cs', $idToStr)->delete('cmt');
+		$this->db->where_in('id_cs', $idToStr)->delete('own');
+		$this->db->where_in('id_cs', $idToStr)->delete('cart');
+		$this->db->where_in('id_cs', $idToStr)->delete('course');
 	}
 	public function add_course($data)
 	{

@@ -51,6 +51,17 @@ class Admin_Panel extends CI_Controller {
 	{
 		$model = new M_Admin();
 		$view = new V_Admin();
+		if ($this->input->post('delete')) {
+			if (!empty($this->input->post('id'))) {
+				$count = count($this->input->post('id'));
+				$idToStr = implode(',', $this->input->post('id'));
+				$model->multi_del_user($idToStr);
+				$this->session->set_flashdata('error', 'Xóa thành công '.$count.' bản ghi!');
+			}
+			else{
+                $this->session->set_flashdata('error', 'Chọn ít nhất 1 bản ghi để xóa!');
+			}
+		}
 		$result = $model->qltv();
 		$page = 'qltv';
 		$view->qltv($result, $page);
@@ -75,6 +86,7 @@ class Admin_Panel extends CI_Controller {
 
 				$model_update = new M_Admin();
 				$model_update->update_user($data);
+				$this->session->set_flashdata('error', 'Sửa thông tin thành công!');
 				redirect(base_url('admin_panel/qltv'));
 			}
 			$result = $model->show_one_user($id);
@@ -90,6 +102,7 @@ class Admin_Panel extends CI_Controller {
 		}
 		else{
 			$model->delete_user($id);
+			$this->session->set_flashdata('error', 'Xóa tài khoản thành công!');
 			redirect(base_url('admin_panel/qltv'));
 		}
 	}
@@ -110,6 +123,7 @@ class Admin_Panel extends CI_Controller {
 
 			$model_update = new M_Admin();
 			$model_update->add_user($data);
+			$this->session->set_flashdata('error', 'Thêm tài khoản thành công!');
 			redirect(base_url('admin_panel/qltv'));
 		}
 		$page = 'add_user';
@@ -129,6 +143,18 @@ class Admin_Panel extends CI_Controller {
 		$model = new M_Admin();
 		$view = new V_Admin();
 
+		if ($this->input->post('delete')) {
+			if (!empty($this->input->post('id'))) {
+				$count = count($this->input->post('id'));
+				$idToStr = implode(',', $this->input->post('id'));
+				$model->multi_del_course($idToStr);
+				$this->session->set_flashdata('error', 'Xóa thành công '.$count.' bản ghi!');
+			}
+			else{
+   				$this->session->set_flashdata('error', 'Chọn ít nhất 1 bản ghi để xóa!');
+			}
+		}
+
 		$result = $model->qlkh();
 		$page = 'qlkh';
 		$view->qlkh($result, $page);
@@ -145,7 +171,6 @@ class Admin_Panel extends CI_Controller {
 				$data['id_cs'] = $id;
 				$data['ten_cs'] = $this->input->post('ten_cs');
 				$data['info_cs'] = $this->input->post('info_cs');
-				$data['tc_cs'] = $this->input->post('tc_cs');
 				$data['mota_cs'] = $this->input->post('mota_cs');
 				$data['giaotrinh_cs'] = $this->input->post('giaotrinh_cs');
 				$data['gia_cs'] = $this->input->post('gia_cs');
@@ -153,6 +178,12 @@ class Admin_Panel extends CI_Controller {
 				$data['sobh_cs'] = $this->input->post('sobh_cs');
 				$data['time_cs'] = $this->input->post('time_cs');
 				$data['playlist_key'] = $this->input->post('playlist_key');
+
+				if ($data['ten_cs'] == NULL) {
+					$this->session->set_flashdata('error', 'Không được để trống tên khóa học!');
+					redirect(base_url('admin_panel/edit_course/'.$id));
+					die();
+				}
 
 				$model_update = new M_Admin();
 				$model_update->update_course($data);
@@ -183,7 +214,7 @@ class Admin_Panel extends CI_Controller {
 		if ($this->input->post('add_course') == 'submit') {
 			$data['ten_cs'] = $this->input->post('ten_cs');
 			$data['info_cs'] = $this->input->post('info_cs');
-			$data['tc_cs'] = $this->session->userdata('name_user');
+			$data['id_user'] = $this->session->userdata('id_user');
 			$data['mota_cs'] = $this->input->post('mota_cs');
 			$data['giaotrinh_cs'] = $this->input->post('giaotrinh_cs');
 			$data['gia_cs'] = $this->input->post('gia_cs');
@@ -191,10 +222,31 @@ class Admin_Panel extends CI_Controller {
 			$data['sobh_cs'] = $this->input->post('sobh_cs');
 			$data['time_cs'] = $this->input->post('time_cs');
 			$data['playlist_key'] = $this->input->post('playlist_key');
-			$data['created_date'] = date("Y-m-d");;
-
-			$model_update->add_course($data);
-			redirect(base_url('admin_panel/qlkh'));
+			$data['created_date'] = date("Y-m-d");
+			if ($data['ten_cs'] == NULL) {
+				$this->session->set_flashdata('error', 'Không được để trống tên khóa học!');
+				redirect(base_url('admin_panel/add_course'));
+				die();
+			}
+			// Upload Image
+			$config['upload_path']          = 'res/uploads';
+			$config['allowed_types']        = 'jpeg|jpg|png';
+			$config['max_size']             = 10240;
+			$this->load->library('upload', $config);
+			if ( ! $this->upload->do_upload('thumb_cs'))
+			{
+				$this->session->set_flashdata('error', 'Lỗi! Thêm khóa học không thành công.'.$this->upload->display_errors());
+			}
+			else
+			{
+				$upload_data = array('upload_data' => $this->upload->data());
+				foreach ($upload_data as $key => $value) {
+					$data['thumb_cs'] = $value['file_name'];
+				}
+				$model_update->add_course($data);
+				$this->session->set_flashdata('error', 'Thêm khóa học thành công!');
+				redirect(base_url('admin_panel/qlkh'));
+			}
 		}
 		$page = 'add_course';
 		$view->add_course($page);
@@ -243,6 +295,7 @@ class Admin_Panel extends CI_Controller {
 		}
 		else{
 			$model->delete_cmt($id);
+			$this->session->set_flashdata('error', 'Xóa bình luận thành công!');
 			redirect(base_url('admin_panel/qlbl'));
 		}
 	}

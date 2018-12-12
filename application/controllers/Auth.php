@@ -110,7 +110,7 @@ class Auth extends CI_Controller {
 				redirect(base_url('auth'));
 			}
 			if ($error == 0){
-				$this->session->set_flashdata('error', 'Tài khoản hoặc mật khẩu không đúng! Vui lòng nhập lại!');
+				$this->session->set_flashdata('error', 'Tài khoản hoặc mật khẩu không đúng!<br>- Vui lòng nhập lại!');
 			}
 			redirect(base_url('auth/login'));
 		}

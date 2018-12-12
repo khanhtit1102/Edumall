@@ -43,6 +43,13 @@
 <?php 
 	foreach ($result as $key => $value) {
  ?>
+<ul class="error" style="color: red;">
+	<?php 
+	if (isset($_SESSION['error'])) {
+		echo $_SESSION['error'];
+	}
+	 ?>
+</ul>
 <form action="" method="POST" role="form">
 	<legend>Chỉnh sửa thông tin cho sản phầm</legend>
 	<div class="form-group">
@@ -55,7 +62,7 @@
 	</div>
 	<div class="form-group">
 		<label for="">Giảng viên</label>
-		<input type="text" class="form-control" name="tc_cs" placeholder="Giảng viên" value="<?php echo $value["tc_cs"]; ?>">
+		<input type="text" class="form-control" name="name_user" placeholder="Giảng viên" value="<?php echo $value["name_user"]; ?>" disabled="">
 	</div>
 	<div class="form-group">
 		<label for="">Mô tả</label>

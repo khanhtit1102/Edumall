@@ -56,7 +56,7 @@ class M_Auth extends CI_Model
 			$count = $row['count(id_user)'];
 		}
 		if ($count == 1) {
-			$this->session->set_userdata('error', 'Tài khoản đã bị trùng! Vui lòng nhập lại!');
+			$this->session->set_flashdata('error', 'Tài khoản đã bị trùng! Vui lòng nhập lại!');
 		}
 		else{
 			$sql = "INSERT INTO user(name_user, pass_user, email_user, permission_user, job_user, created_date, code_user) VALUES ('$username', '$pass', '$email', '$type_account', '$job_user', '$date', '$code')";
@@ -169,12 +169,12 @@ class M_Auth extends CI_Model
 	{
 		$sql = "UPDATE user SET name_user = '$name', job_user = '$job', about_user = '$about' WHERE id_user = '$id'";
 		$query = $this->db->query($sql);
-		$this->session->set_userdata('error', 'Thay đổi thông tin thành công!');
+		$this->session->set_flashdata('error', 'Thay đổi thông tin thành công!');
 	}
 	public function changepass($id, $oldpass, $newpass)
 	{
 		if (strlen($oldpass) < 6 || strlen($newpass) < 6) {
-			$this->session->set_userdata('error', 'Vui lòng nhập mật khẩu lớn hơn 6 ký tự!');
+			$this->session->set_flashdata('error', 'Vui lòng nhập mật khẩu lớn hơn 6 ký tự!');
 		}
 		else{
 			$oldpass = md5($oldpass);
@@ -188,10 +188,11 @@ class M_Auth extends CI_Model
 			if ($count == 1) {
 				$sql = "UPDATE user SET pass_user = '$newpass' WHERE id_user = '$id' ";
 				$query = $this->db->query($sql);
-				$this->session->set_userdata('error', 'Đổi mật khẩu thành công!');
+				$this->session->set_flashdata('error', 'Đổi mật khẩu thành công!');
+
 			}
 			else{
-				$this->session->set_userdata('error', 'Sai mật khẩu hiện tại!');
+				$this->session->set_flashdata('error', 'Sai mật khẩu hiện tại!');
 			}
 		}
 	}
