@@ -43,13 +43,14 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST) {
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Install | Welcome to Installer CodeIginter by Abed Putra</title>
+		<title>Install | Welcome to Installer CodeIginter</title>
 		<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
     <div class="container">
         <div class="col-md-4 col-md-offset-4">
-            <h1>Installer</h1>
+            <h1 align="center"><b>Installer</b></h1>
+            <h4 align="center">CodeIgniter Web Framework</h4>
             <hr>
             <?php 
             if(is_writable($db_config_path))
@@ -99,7 +100,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST) {
                 <div class="form-group">
                     <label for="database">CodeIgniter Version</label>
                     <select class="form-control" id="template" name="template" />
-                        <option value="2">2</option>
                         <option value="3">3</option>
                     </select>
                     <p class="help-block">Your CodeIgniter Version.</p>
@@ -125,7 +125,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST) {
             <footer>
                 <div class="col-md-12" style="text-align:center;margin-bottom:20px">
                     <hr>
-                    Copyright - 2017 | <a href="http://abedputra.com">abedputra.com</a>
+                    CodeIgniter Installer | Special thanks to <a href="http://abedputra.com">Author</a> !
                 </div>
             </footer>
       </div>
