@@ -1,9 +1,9 @@
 ###################
 Edumall - CodeIgniter
 ###################
- - AUTHOR -
+ Author:
 `Facebook
-<https://www.facebook.com/FindOut.K.T>`_ page.
+<https://www.facebook.com/FindOut.K.T>`_ 
 
 **************************
 Special - THANKS - to my TEAM ♥
