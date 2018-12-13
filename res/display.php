@@ -25,7 +25,7 @@
 					<p><?php echo $value["info_cs"]; ?></p>
 					<div class="trai col-md-8">
 						<div class="thumbnail">
-							<img src="res/imgs/<?php echo $value['thumb_cs']; ?>" alt="">
+							<img src="res/uploads/<?php echo $value['thumb_cs']; ?>" alt="">
 						</div>
 						<div class="author">
 							<div class="avatar-author">
@@ -33,7 +33,7 @@
 							</div>
 							<div class="info-author">
 								<p>Giảng Viên</p>
-								<h3><?php echo $value["id_user"]; ?></h3>
+								<h3><?php echo $value["name_user"]; ?></h3>
 								<a href="" target="_blank" class="btn btn-success">Contact</a><br><br>
 							</div>
 						</div><br>
@@ -74,7 +74,40 @@
 							<tbody>
 								<tr>
 									<td>Thể loại: </td>
-									<td><?php echo $value['id_cate'];?></td>
+									<td>
+										<?php 
+										switch ($value['id_cate']) {
+											case 'cntt':
+											echo "Công nghệ thông tin";
+											break;
+											case 'tk':
+											echo "Thiết kế";
+											break;
+											case 'ndc':
+											echo "Nuôi dạy con";
+											break;
+											case 'ptbt':
+											echo "Phát triển bản thân";
+											break;
+											case 'kdkn':
+											echo "Kinh doanh & khởi nghiệp";
+											break;
+											case 'nn':
+											echo "Ngoại ngữ";
+											break;
+											case 'mkt':
+											echo "Marketing";
+											break;
+											case 'thvp':
+											echo "Tin học văn phòng";
+											break;
+
+											default:
+											echo "Khác";
+											break;
+										}
+										?>
+									</td>
 								</tr>
 								<tr>
 									<td>Cấp độ: </td>

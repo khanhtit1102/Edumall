@@ -26,7 +26,7 @@
 						<iframe width="740" height="398" src="https://www.youtube.com/embed/videoseries?rel=0&autoplay=1&list=<?php echo $value['playlist_key'] ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 					</span>
 					<div class="info-author">
-						<p>Giảng Viên: <b><?php echo $value['id_user'] ?></b></p>
+						<p>Giảng Viên: <b><?php echo $value['name_user'] ?></b></p>
 					</div>
 				</div>
 				<?php } ?>

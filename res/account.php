@@ -124,7 +124,7 @@
 							 ?>
 							<td class="col-md-4">
 								<a href="<?php echo base_url('learn/course/').$value['id_cs']; ?>" class="thumbnail">
-									<img src="res/imgs/<?php echo $value['thumb_cs']; ?>" alt="">
+									<img src="res/uploads/<?php echo $value['thumb_cs']; ?>" alt="">
 									<h5><?php echo $value['ten_cs']; ?></h5>
 									<label class="author">Giảng viên: <?php echo $value['name_user']; ?></label>
 								</a>

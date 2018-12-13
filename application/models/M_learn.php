@@ -16,7 +16,8 @@ class M_Learn extends CI_Model
 	public function show_once($id_cs)
 	{
 		$this->db->where('id_cs', $id_cs);
-		$query = $this->db->get('course');
+		$this->db->where('course.id_user = user.id_user');
+		$query = $this->db->get('course, user');
 		return $query->result_array();
 	}
 	public function show_comment($id_cs)

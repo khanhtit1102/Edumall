@@ -171,11 +171,11 @@ main .topic .tab-content .button-slide button:hover{
 }
 main .topic .tab-content .button-slide .left{
 	position: absolute;
-	top: -347px;
+	top: -330px;
 }
 main .topic .tab-content .button-slide .right{
 	position: absolute;
-	top: -347px;
+	top: -330px;
 	right: 0px;
 }
 main .banner .slide{

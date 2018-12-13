@@ -66,7 +66,7 @@
 								<td class="col-md-4">
 									<div class="thumbnail">
 										<a href="<?php echo base_url('display?id=').$row->id_cs; ?>">
-											<img src="<?php echo base_url(); ?>res/imgs/<?php echo $row->thumb_cs; ?>" alt="">
+											<img src="<?php echo base_url(); ?>res/uploads/<?php echo $row->thumb_cs; ?>" alt="">
 										</a>
 										<div class="caption">
 											<a href="<?php echo base_url('display?id=').$row->id_cs; ?>"><h3><?php echo $row->ten_cs; ?></h3></a>

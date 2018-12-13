@@ -6,7 +6,8 @@ class M_Display extends CI_Model
 	public function show_once_course($id)
 	{
 		$this->db->where('id_cs', $id);
-		$query = $this->db->get('course');
+		$this->db->where('course.id_user = user.id_user');
+		$query = $this->db->get('course, user');
 		return $query->result_array();
 	}
 	public function hasown($data)

@@ -34,7 +34,7 @@
 								<td>
 									<div class="course-list">
 										<div class="course-image col-md-4">
-											<a href="<?php echo base_url('display?id=').$value['id_cs']; ?>"><img src="res/imgs/<?php echo $value['thumb_cs']; ?>" alt="" width="100%"></a>
+											<a href="<?php echo base_url('display?id=').$value['id_cs']; ?>"><img src="res/uploads/<?php echo $value['thumb_cs']; ?>" alt="" width="100%"></a>
 										</div>
 										<div class="course-content col-md-7">
 											<a href="<?php echo base_url('display?id=').$value['id_cs']; ?>"><h4 class="title"><?php echo $value['ten_cs']; ?></h4></a>

@@ -187,6 +187,7 @@ class Admin_Panel extends CI_Controller {
 
 				$model_update = new M_Admin();
 				$model_update->update_course($data);
+				$this->session->set_flashdata('error', 'Sửa khóa học thành công!');
 				redirect(base_url('admin_panel/qlkh'));
 			}
 			
@@ -204,6 +205,7 @@ class Admin_Panel extends CI_Controller {
 		}
 		else{
 			$model->delete_course($id);
+			$this->session->set_flashdata('error', 'Xóa khóa học thành công!');
 			redirect(base_url('admin_panel/qlkh'));
 		}
 	}

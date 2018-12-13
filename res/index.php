@@ -62,7 +62,7 @@
 							?>
 							<li>
 								<a href="<?php echo base_url('display?id=').$row['id_cs']; ?>" class="thumbnail">
-									<img src="res/imgs/<?php echo $row['thumb_cs']; ?>" alt="">
+									<img src="res/uploads/<?php echo $row['thumb_cs']; ?>" alt="" style="height: 75%;">
 									<h5><?php echo $row['ten_cs']; ?></h5>
 									<label class="author"><?php echo $row['name_user']; ?></label>
 									<label class="price"><?php echo $row['gia_cs']; ?></label>
@@ -80,7 +80,7 @@
 							?>
 							<li>
 								<a href="<?php echo base_url('display?id=').$row['id_cs']; ?>" class="thumbnail">
-									<img src="res/imgs/<?php echo $row['thumb_cs']; ?>" alt="">
+									<img src="res/uploads/<?php echo $row['thumb_cs']; ?>" alt="" style="height: 75%;">
 									<h5><?php echo $row['ten_cs']; ?></h5>
 									<label class="author"><?php echo $row['name_user']; ?></label>
 									<label class="price"><?php echo $row['gia_cs']; ?></label>
@@ -98,7 +98,7 @@
 							?>
 							<li>
 								<a href="<?php echo base_url('display?id=').$row['id_cs']; ?>" class="thumbnail">
-									<img src="res/imgs/<?php echo $row['thumb_cs']; ?>" alt="">
+									<img src="res/uploads/<?php echo $row['thumb_cs']; ?>" alt="" style="height: 75%;">
 									<h5><?php echo $row['ten_cs']; ?></h5>
 									<label class="author"><?php echo $row['name_user']; ?></label>
 									<label class="price"><?php echo $row['gia_cs']; ?></label>
