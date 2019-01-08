@@ -15,6 +15,13 @@ header("Refresh:0; url=index.php");
 echo "<meta http-equiv='refresh' content='5; url=http://khanhtitictu.tk/' />";
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLzbBRsexr0iHkkq1NozFH91Zi3WqhTLRc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+// In Controller Class
+foreach ($result as $key => $value){
+   $var = $value['id_cp'];
+}
+// In HTML File
+
+
 
 Extension: Line style
 Software Ideas Modeller

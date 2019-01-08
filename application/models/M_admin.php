@@ -26,6 +26,41 @@ class M_Admin extends CI_Model
     	);
     	return $dashboard_count;
     }
+    public function dateNews()
+    {
+    	// SELECT created_date AS courseTime FROM course ORDER BY created_date DESC LIMIT 0,1
+    	$this->db->select('created_date AS courseTime')->from('course')->order_by('created_date', 'DESC')->limit(1);
+    	$courseTime = $this->db->get();
+    	foreach ($courseTime->result_array() as $row) {
+    		$date['courseTime'] = $row['courseTime'];
+    	}
+    	// SELECT created_date AS userTime FROM user ORDER BY created_date DESC LIMIT 0,1
+    	$this->db->select('created_date AS userTime')->from('user')->order_by('created_date', 'DESC')->limit(1);
+    	$userTime = $this->db->get();
+    	foreach ($userTime->result_array() as $row) {
+    		$date['userTime'] = $row['userTime'];
+    	}
+    	// SELECT date_own AS ownTime FROM own ORDER BY date_own DESC LIMIT 0,1
+    	$this->db->select('date_own AS ownTime')->from('own')->order_by('date_own', 'DESC')->limit(1);
+    	$ownTime = $this->db->get();
+    	foreach ($ownTime->result_array() as $row) {
+    		$date['ownTime'] = $row['ownTime'];
+    	}
+    	// SELECT DATE_FORMAT(ngay_cmt, '%Y-%m-%d') AS cmtTime FROM cmt ORDER BY ngay_cmt DESC LIMIT 0,1
+    	$this->db->select("DATE_FORMAT(ngay_cmt, '%Y-%m-%d') AS cmtTime")->from('cmt')->order_by('ngay_cmt', 'DESC')->limit(1);
+    	$cmtTime = $this->db->get();
+    	foreach ($cmtTime->result_array() as $row) {
+    		$date['cmtTime'] = $row['cmtTime'];
+    	}
+    	// SELECT SUM(menh_gia) AS money FROM `money_history` WHERE 1
+    	$this->db->select('SUM(menh_gia) AS money')->from('money_history');
+    	$money = $this->db->get();
+    	foreach ($money->result_array() as $row) {
+    		$date['money'] = $row['money'];
+    	}
+    	
+		return $date;
+    }
     public function admin_chat()
     {
     	$this->db->from('adminchat, user')->where('adminchat.id_user = user.id_user')->order_by('adminchat.date_chat', 'DESC');
@@ -118,8 +153,14 @@ class M_Admin extends CI_Model
 	}
 	public function qldh()
 	{
-		$this->db->select('own.*, user.name_user, course.ten_cs, course.gia_cs')->where('own.id_user = user.id_user AND own.id_cs = course.id_cs');
-		$query = $this->db->get('own,user,course');
+		$this->db->select('own.*, user.name_user, course.ten_cs, course.gia_cs, coupon.code_cp, coupon.percent_discount');
+		$this->db->from('own');
+		$this->db->join('coupon', 'own.id_cp = coupon.id_cp', 'left');
+		$this->db->join('user', 'own.id_user = user.id_user', 'left');
+		$this->db->join('course', 'own.id_cs = course.id_cs', 'left');
+		$query = $this->db->get();
+		// $this->db->select('own.*, user.name_user, course.ten_cs, course.gia_cs')->where('own.id_user = user.id_user AND own.id_cs = course.id_cs');
+		// $query = $this->db->get('own,user,course');
 		return $query->result_array();
 	}
 	public function qlbl()

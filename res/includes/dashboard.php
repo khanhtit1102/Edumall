@@ -170,7 +170,7 @@
 	<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<i class="fa fa-bell fa-fw"></i> Today News
+				<i class="fa fa-bell fa-fw"></i> Tin tức mới
 				<div class="pull-right">
 					<div class="btn-group">
 						<a href=""><button type="button" class="btn btn-default btn-xs">Refresh</button></a>
@@ -180,33 +180,33 @@
 			<div class="panel-body">
 				<div class="list-group">
 					<a href="#" class="list-group-item">
-						<i class="fa fa-comment fa-fw"></i> New Course
-						<span class="pull-right small"><em>4 minutes ago</em>
+						<i class="fa fa-book fa-fw"></i> Khóa học mới
+						<span class="pull-right small"><em><?php echo $newTime['courseTime'].' days ago' ?></em>
 						</span>
 					</a>
 					<a href="#" class="list-group-item">
-						<i class="fa fa-twitter fa-fw"></i> New Member
-						<span class="pull-right small"><em>12 minutes ago</em>
+						<i class="fa fa-user fa-fw"></i> Thành viên mới
+						<span class="pull-right small"><em><?php echo $newTime['userTime'].' days ago' ?></em>
 						</span>
 					</a>
 					<a href="#" class="list-group-item">
-						<i class="fa fa-envelope fa-fw"></i> New Order
-						<span class="pull-right small"><em>27 minutes ago</em>
+						<i class="fa fa-shopping-cart fa-fw"></i> Lượt mua khóa học mới
+						<span class="pull-right small"><em><?php echo $newTime['ownTime'].' days ago' ?></em>
 						</span>
 					</a>
 					<a href="#" class="list-group-item">
-						<i class="fa fa-tasks fa-fw"></i> New Comment
-						<span class="pull-right small"><em>43 minutes ago</em>
+						<i class="fa fa-comment fa-fw"></i> Bình luận mới
+						<span class="pull-right small"><em><?php echo $newTime['cmtTime'].' days ago' ?></em>
 						</span>
 					</a>
 					<a href="#" class="list-group-item">
 						<i class="fa fa-upload fa-fw"></i> Email Sent
-						<span class="pull-right small"><em>11:32 AM</em>
+						<span class="pull-right small"><em>32 email sent</em>
 						</span>
 					</a>
 					<a href="#" class="list-group-item">
 						<i class="fa fa-money fa-fw"></i> Payment Received
-						<span class="pull-right small"><em>Yesterday</em>
+						<span class="pull-right small"><em><?php echo number_format($newTime['money']).' VNĐ' ?></em>
 						</span>
 					</a>
 				</div>

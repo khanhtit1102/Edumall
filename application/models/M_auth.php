@@ -196,11 +196,19 @@ class M_Auth extends CI_Model
 			}
 		}
 	}
-	public function add_money($menh_gia)
+	public function add_money($menh_gia, $ma_nap)
 	{
 		$id = $this->session->userdata('id_user');
 		$old_coin = $this->session->userdata('coin_user');
 		$new_coin = $menh_gia + $old_coin;
+		// Thêm dữ liệu vào bảng money_history
+		$data = array(
+			'id_user' => $id,
+			'menh_gia' => $menh_gia,
+			'ma_nap' => $ma_nap,
+		);
+		$this->db->insert('money_history', $data);
+		// Sửa tiền của user
 		$this->db->set('coin_user', $new_coin);
 		$this->db->where('id_user', $id);
 		$this->db->update('user');

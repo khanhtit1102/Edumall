@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class V_Admin
 {
-	public function index($dashboard_count, $admin_chat, $page)
+	public function index($dashboard_count, $admin_chat, $page, $newTime)
 	{
 		include "res/admin/index.php";
 	}

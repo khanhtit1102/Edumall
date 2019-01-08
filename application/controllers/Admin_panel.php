@@ -30,6 +30,12 @@ class Admin_Panel extends CI_Controller {
 		$view = new V_Admin();
 		// Load Count Header
 		$dashboard_count = $model->dashboard_count();
+		// Load News Time - Phép tính trừ ngày
+		$newTime = $model->dateNews();
+		$newTime['courseTime'] = floor(abs(strtotime(date('Y-m-d')) - strtotime($newTime['courseTime'])) / (60*60*24));
+		$newTime['userTime'] = floor(abs(strtotime(date('Y-m-d')) - strtotime($newTime['userTime'])) / (60*60*24));
+		$newTime['ownTime'] = floor(abs(strtotime(date('Y-m-d')) - strtotime($newTime['ownTime'])) / (60*60*24));
+		$newTime['cmtTime'] = floor(abs(strtotime(date('Y-m-d')) - strtotime($newTime['cmtTime'])) / (60*60*24));
 		// Load Admin Chat
 		$admin_chat = $model->admin_chat();
 		if ($this->input->post('chat_admin') == 'submit') {
@@ -45,7 +51,7 @@ class Admin_Panel extends CI_Controller {
 			}
 		}
 		$page = 'dashboard';
-		$view->index($dashboard_count, $admin_chat, $page);
+		$view->index($dashboard_count, $admin_chat, $page, $newTime);
 	}
 	public function qltv()
 	{

@@ -118,6 +118,17 @@ class Auth extends CI_Controller {
 			redirect(base_url('auth/login'));
 		}
 	}
+	public function login_fb()
+	{
+		$this->load->library('facebook', array('appId' => '236587060565211', 'secret' => '14195e4f595a015e30bdd201c6c93240'));
+		$user = $this->facebook->getUser();
+		if ($user) {
+			echo $data['user_profile'] = $this->facebook->api('/me/'); die();
+		}
+		else{
+			echo $data['login_url'] = $this->facebook->getLoginUrl(); die();
+		}
+	}
 	public function register()
 	{
 		if ($this->session->has_userdata('id_user')) {
@@ -315,8 +326,9 @@ class Auth extends CI_Controller {
 		$model = new M_Auth();
 		if ($this->input->post('nap_the') == 'submit') {
 			$menh_gia = $this->input->post('menh_gia');
-			$model->add_money($menh_gia);
-			$this->session->set_flashdata('error', 'Nạp thêm '.$menh_gia.' VND thành công!');
+			$ma_nap = $this->input->post('ma_nap');
+			$model->add_money($menh_gia, $ma_nap);
+			$this->session->set_flashdata('error', 'Nạp thêm <b>'.number_format($menh_gia).'</b> VND thành công!');
 			redirect(base_url('auth'));
 		}
 		$view->add_money();

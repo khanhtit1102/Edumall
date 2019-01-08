@@ -7,7 +7,7 @@
 				<i class="fa fa-bar-chart-o fa-fw"></i> Months Chart Example
 				<div class="pull-right">
 					<div class="btn-group">
-						<a href="" onclick="a()"><button type="button" class="btn btn-default btn-xs">Refresh</button></a>
+						<a href=""><button type="button" class="btn btn-default btn-xs">Refresh</button></a>
 					</div>
 				</div>
 			</div>
