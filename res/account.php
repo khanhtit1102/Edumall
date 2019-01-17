@@ -114,7 +114,11 @@
 				<div id="mycourse" class="tab-pane fade">
 					<table>
 						<tr>
+
 							<?php 
+							if ($owner == null) {
+								echo "<center><b>Bạn chưa sở hữu khóa học nào!</b><br>Vui lòng mua thêm khóa học <a href='courses'>tại đây</a>!</center>";
+							}
 							$i = 0;
 								foreach ($owner as $key => $value) {
 									if($i == 3){
@@ -126,7 +130,6 @@
 								<a href="<?php echo base_url('learn/course/').$value['id_cs']; ?>" class="thumbnail">
 									<img src="res/uploads/<?php echo $value['thumb_cs']; ?>" alt="">
 									<h5><?php echo $value['ten_cs']; ?></h5>
-									<label class="author">Giảng viên: <?php echo $value['name_user']; ?></label>
 								</a>
 							</td>
 							<?php $i++; } ?>

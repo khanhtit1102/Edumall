@@ -34,6 +34,7 @@
 			</li>
 			<ul class="sub-menu collapse" id="order">
 				<li><a href="<?php echo base_url('admin_panel/qldh') ?>"> Quản lý đơn hàng</a></li>
+				<li><a href="<?php echo base_url('admin_panel/payment') ?>"> Thanh toán cho giáo viên</a></li>
 				<li><a href="<?php echo base_url('admin_panel/chart_order') ?>"> Thống kê đơn hàng</a></li>
 			</ul>
 

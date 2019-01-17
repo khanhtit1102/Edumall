@@ -29,7 +29,7 @@
 						</div>
 						<div class="author">
 							<div class="avatar-author">
-								<img src="res/imgs/men.png" alt="">
+								<img src="<?php echo base_url('res/uploads/').$value['avatar_user']; ?>" alt="">
 							</div>
 							<div class="info-author">
 								<p>Giảng Viên</p>
@@ -63,7 +63,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="phai col-md-4"><br>
+					<div class="phai col-md-4" id="phai"><br>
 						<h3>Giá: <?php echo number_format($value["gia_cs"]); ?>đ</h3><br>
 						<table class="table table-hover">
 							<thead>
@@ -142,6 +142,17 @@
 		<?php include "includes/footer.php" ?>
 	</footer>
 	<!-- Script -->
+	<script>
+		window.onscroll = function() {scrollFunction()};
+
+		function scrollFunction() {
+			if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+				document.getElementById("phai").style.position = "absolute";
+			} else {
+				document.getElementById("phai").style.position = "fixed";
+			}
+		}
+	</script>
 	<script src="<?php echo base_url('res/'); ?>js/webjs.js"></script>
 	<script src="<?php echo base_url('res/'); ?>bs/js/jquery.js"></script>
 	<script src="<?php echo base_url('res/'); ?>bs/js/bootstrap.min.js"></script>

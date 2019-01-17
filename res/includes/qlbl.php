@@ -26,8 +26,9 @@
 			<td><?php echo $value['email_cmt']; ?></td>
 			<td><?php echo $value['nd_cmt']; ?></td>
 			<td><?php echo $value['ngay_cmt']; ?></td>
-			<td>
-				<!-- <a class="btn btn-primary" href=""><i class="fa fa-check"></i></a> -->
+			<td style="display: flex;">
+				<a class="btn btn-primary" href="<?php echo base_url('learn/course/').$value['id_cs']; ?>"><i class="fa fa-list-alt"></i></a>
+				
 				<a class="btn btn-danger" href="delete_cmt/<?php echo $value['id_cmt']; ?>" onclick="return confirm('Bạn thực sự muốn xóa bình luận này?')"><i class="fa fa-times"></i></a>
 			</td>
 		</tr>

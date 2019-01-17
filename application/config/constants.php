@@ -83,3 +83,10 @@ defined('EXIT_USER_INPUT')     OR define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+// TEST Paypal Express credential
+define('PRO_PAYPAL', 0);
+define("PAYPAL_CLIENTID", "AeBVmlbQhRTw5NeLbv4tQgvxGr2mRYjVRudqIIsbucnnMtyN74fIruCNZjk-1oQR-Bim001GqiIXff-T");
+define("PAYPAL_SECRET", "EPFmqazweJmDOZwLX6MDlSZQyayX3lQZETviXOkqr9FMEZIr3fl_IUCFiM3h_-feKQR8RPzxQ2Qbe78B");
+define("PAYPAL_BASE_URL", "https://api.sandbox.paypal.com/v1/");
+define("PAYPAL_ENV", "sandbox");
+define('CURRENCY', 'USD');

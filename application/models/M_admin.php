@@ -86,9 +86,13 @@ class M_Admin extends CI_Model
 	}
 	public function multi_del_user($idToStr)
 	{
+		// course cart adminchat teacherchat money_history payment_request own user
+		$this->db->where_in('id_user', $idToStr)->delete('course');
+		$this->db->where_in('id_user', $idToStr)->delete('cart');
 		$this->db->where_in('id_user', $idToStr)->delete('adminchat');
 		$this->db->where_in('id_user', $idToStr)->delete('teacherchat');
-		$this->db->where_in('id_user', $idToStr)->delete('cart');
+		$this->db->where_in('id_user', $idToStr)->delete('money_history');
+		$this->db->where_in('id_user', $idToStr)->delete('payment_request');
 		$this->db->where_in('id_user', $idToStr)->delete('own');
 		$this->db->where_in('id_user', $idToStr)->delete('user');
 	}
@@ -100,7 +104,6 @@ class M_Admin extends CI_Model
 	}
 	public function show_one_course($id)
 	{
-		// SELECT course.*, user.name_user FROM course, user WHERE course.id_user = user.id_user
 		$this->db->select('course.*, user.name_user');
 		$this->db->from('course, user');
 		$this->db->where('course.id_user = user.id_user');
@@ -159,8 +162,6 @@ class M_Admin extends CI_Model
 		$this->db->join('user', 'own.id_user = user.id_user', 'left');
 		$this->db->join('course', 'own.id_cs = course.id_cs', 'left');
 		$query = $this->db->get();
-		// $this->db->select('own.*, user.name_user, course.ten_cs, course.gia_cs')->where('own.id_user = user.id_user AND own.id_cs = course.id_cs');
-		// $query = $this->db->get('own,user,course');
 		return $query->result_array();
 	}
 	public function qlbl()
@@ -178,4 +179,23 @@ class M_Admin extends CI_Model
 		$query = $this->db->get('adminchat');
 		return $query->result_array();
 	}
+	public function load_payment()
+	{
+		$query = $this->db->get('payment_request');
+		return $query->result_array();
+	}
+	public function payment_accept($id_payreq)
+	{
+		$this->db->set('state_payreq', 1);
+		$this->db->set('date_payment', date('Y-m-d H:i:s'));
+		$this->db->where('id_payreq', $id_payreq);
+		$this->db->update('payment_request');
+	}
+	// Export data to Excel Files
+    public function employeeList() {
+        $this->db->select(array('e.id_user', 'e.email_user', 'e.pass_user', 'e.name_user', 'e.job_user', 'e.sex_user', 'e.	about_user', 'e.permission_user', 'e.code_user', 'e.coin_user', 'e.avatar_user', 'e.created_date',));
+        $this->db->from('user as e');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

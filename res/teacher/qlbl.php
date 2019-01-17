@@ -9,24 +9,19 @@
 			<th>Email liên hệ</th>
 			<th>Nội dung</th>
 			<th>Thời gian</th>
-			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-	<?php 
-		foreach ($result as $key => $value) {
+	<?php $i = 0;
+		foreach ($result as $key => $value) { $i++;
 	?>
 		<tr>
-			<td><?php echo $value['id_cmt']; ?></td>
+			<td><?php echo $i; ?></td>
 			<td><a href="<?php echo base_url('display?id=').$value['id_cs']; ?>"><?php echo $value['ten_cs']; ?></a></td>
 			<td><?php echo $value['ten_cmt']; ?></td>
 			<td><?php echo $value['email_cmt']; ?></td>
 			<td><?php echo $value['nd_cmt']; ?></td>
 			<td><?php echo $value['ngay_cmt']; ?></td>
-			<td>
-				<a class="btn btn-primary" href=""><i class="fa fa-edit"></i></a>
-				<a class="btn btn-danger" href="delete_cmt/<?php echo $value['id_cmt']; ?>" onclick="return confirm('Bạn thực sự muốn xóa bình luận này?')"><i class="fa fa-times"></i></a>
-			</td>
 		</tr>
 	<?php } ?>
 	</tbody>
@@ -38,7 +33,6 @@
 			<th>Email liên hệ</th>
 			<th>Nội dung</th>
 			<th>Thời gian</th>
-			<th></th>
 		</tr>
 	</tfoot>
 </table>

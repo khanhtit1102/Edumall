@@ -56,4 +56,8 @@ class V_Admin
 	{
 		include "res/admin/index.php";
 	}
+	public function payment($result, $page)
+	{
+		include "res/admin/index.php";
+	}
 }

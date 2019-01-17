@@ -148,9 +148,9 @@ class M_Auth extends CI_Model
 	}
 	public function show_owner_course()
 	{
-		#SELECT course.id_cs, course.ten_cs, course.thumb_cs, user.name_user FROM course, own, user WHERE course.id_cs = own.id_cs AND own.id_user = user.id_user AND own.id_user = 1 ORDER BY own.date_own DESC
+		#SELECT course.id_cs, course.ten_cs, course.thumb_cs FROM course, own, user WHERE course.id_cs = own.id_cs AND own.id_user = user.id_user AND own.id_user = 1 ORDER BY own.date_own DESC
 		$id = $this->session->userdata('id_user');
-		$this->db->select('course.id_cs, course.ten_cs, course.thumb_cs, user.name_user');
+		$this->db->select('course.id_cs, course.ten_cs, course.thumb_cs');
 		$this->db->where('course.id_cs = own.id_cs');
 		$this->db->where('own.id_user = user.id_user');
 		$this->db->where('own.id_user', $id);

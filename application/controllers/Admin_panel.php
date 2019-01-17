@@ -59,9 +59,11 @@ class Admin_Panel extends CI_Controller {
 		$view = new V_Admin();
 		if ($this->input->post('delete')) {
 			if (!empty($this->input->post('id'))) {
-				$count = count($this->input->post('id'));
-				$idToStr = implode(',', $this->input->post('id'));
-				$model->multi_del_user($idToStr);
+				$id_mul_del =  $this->input->post('id');
+				$count = count($id_mul_del);
+				for ($i=0; $i < $count; $i++) { 
+					$model->multi_del_user($id_mul_del[$i]);
+				}
 				$this->session->set_flashdata('error', 'Xóa thành công '.$count.' bản ghi!');
 			}
 			else{
@@ -151,9 +153,11 @@ class Admin_Panel extends CI_Controller {
 
 		if ($this->input->post('delete')) {
 			if (!empty($this->input->post('id'))) {
-				$count = count($this->input->post('id'));
-				$idToStr = implode(',', $this->input->post('id'));
-				$model->multi_del_course($idToStr);
+				$id_mul_del =  $this->input->post('id');
+				$count = count($id_mul_del);
+				for ($i=0; $i < $count; $i++) { 
+					$model->multi_del_course($id_mul_del[$i]);
+				}
 				$this->session->set_flashdata('error', 'Xóa thành công '.$count.' bản ghi!');
 			}
 			else{
@@ -231,8 +235,8 @@ class Admin_Panel extends CI_Controller {
 			$data['time_cs'] = $this->input->post('time_cs');
 			$data['playlist_key'] = $this->input->post('playlist_key');
 			$data['created_date'] = date("Y-m-d");
-			if ($data['ten_cs'] == NULL) {
-				$this->session->set_flashdata('error', 'Không được để trống tên khóa học!');
+			if ($data['ten_cs'] == NULL || $data['info_cs'] == NULL || $data['mota_cs'] == NULL || $data['giaotrinh_cs'] == NULL || $data['gia_cs'] == NULL || $data['id_cate'] == NULL || $data['sobh_cs'] == NULL || $data['time_cs'] == NULL || $data['playlist_key'] == NULL) {
+				$this->session->set_flashdata('error', '<b>Lỗi dữ liệu! </b>Không được để trống tất cả thông tin khóa học!');
 				redirect(base_url('admin_panel/add_course'));
 				die();
 			}
@@ -243,7 +247,7 @@ class Admin_Panel extends CI_Controller {
 			$this->load->library('upload', $config);
 			if ( ! $this->upload->do_upload('thumb_cs'))
 			{
-				$this->session->set_flashdata('error', 'Lỗi! Thêm khóa học không thành công.'.$this->upload->display_errors());
+				$this->session->set_flashdata('error', '<b>Lỗi!</b> Ảnh không được tải lên.'.$this->upload->display_errors());
 			}
 			else
 			{
@@ -252,7 +256,7 @@ class Admin_Panel extends CI_Controller {
 					$data['thumb_cs'] = $value['file_name'];
 				}
 				$model_update->add_course($data);
-				$this->session->set_flashdata('error', 'Thêm khóa học thành công!');
+				$this->session->set_flashdata('error', '<b>Thành công!</b> Thêm khóa học thành công!');
 				redirect(base_url('admin_panel/qlkh'));
 			}
 		}
@@ -316,4 +320,73 @@ class Admin_Panel extends CI_Controller {
 		$page = 'chart_cmt';
 		$view->chart_cmt($result, $page);
 	}
+	public function payment()
+	{
+		$model = new M_Admin();
+		$view = new V_Admin();
+
+		$result = $model->load_payment();
+		$page = 'payment';
+		$view->payment($result, $page);
+	}
+	public function payment_accept($id_payreq = '')
+	{
+		// Chưa kiểm tra dữ liệu đã được thanh toán hay chưa
+		$model = new M_Admin();
+		$model->payment_accept($id_payreq);
+		$this->session->set_flashdata('error', '<b>Thành công! </b>Đã thanh toán thành công..!');
+		redirect(base_url('admin_panel/payment'));
+	}
+	// Export data to Excel Files
+	public function createXLS() {
+		// Delete all file
+		$files = glob('res/exports/*'); 
+		foreach($files as $file){
+			if(is_file($file))
+				unlink($file);
+		}
+		// Create file name
+        $fileName = 'data-'.date('d-m-Y').'.xlsx';  
+		// Load excel library
+        $this->load->library('excel');
+        $model = new M_Admin();
+        $empInfo = $model->employeeList();
+        $objPHPExcel = new PHPExcel();
+        $objPHPExcel->setActiveSheetIndex(0);
+        // Set Header
+        $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'ID User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Email User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Pass User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Name User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Job User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('F1', 'Sex User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('G1', 'About User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('H1', 'Permission User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('I1', 'Code User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('J1', 'Coin User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('K1', 'Avatar User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('L1', 'Created Date');
+        // Set Row
+        $rowCount = 2;
+        foreach ($empInfo as $element) {
+            $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $element['id_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, $element['email_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $element['pass_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $element['name_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $element['job_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowCount, $element['sex_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('G' . $rowCount, $element['about_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowCount, $element['permission_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $element['code_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('J' . $rowCount, $element['coin_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('K' . $rowCount, $element['avatar_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('L' . $rowCount, $element['created_date']);
+            $rowCount++;
+        }
+        $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
+        $objWriter->save("res/exports/".$fileName);
+		// Download file
+        header("Content-Type: application/vnd.ms-excel");
+        redirect("../res/exports/".$fileName);     
+    }
 }

@@ -65,8 +65,13 @@ class M_Cart extends CI_Model
 		// SELECT id_cp FROM coupon WHERE code_cp = ''
 		$this->db->select('id_cp')->where('code_cp', $code_cp);
 		$result_cp = $this->db->get('coupon')->result_array();
-		foreach ($result_cp as $row) {
-			$id_cp = $row['id_cp'];
+		if ($result_cp == null) {
+			$id_cp = null;
+		}
+		else{
+			foreach ($result_cp as $row) {
+				$id_cp = $row['id_cp'];
+			}
 		}
 		# Chuyển csdl vào bảng own
 		$id = $this->session->userdata('id_user');

@@ -7,12 +7,29 @@ class V_Teacher
 	{
 		include "res/teacher/index.php";
 	}
-	public function edit_course($result)
+	public function qltt($result, $page)
 	{
-		include "res/teacher/edit-course.php";
+		include "res/teacher/index.php";
 	}
-	public function qlkh($result)
+	public function payment($result, $page)
 	{
-		include "res/teacher/ql-kh.php";
+		include "res/teacher/index.php";
 	}
+	public function qlkh($result, $page)
+	{
+		include "res/teacher/index.php";
+	}
+	public function edit_course($result, $page)
+	{
+		include "res/teacher/index.php";
+	}
+	public function add_course($page)
+	{
+		include "res/teacher/index.php";
+	}
+	public function qlbl($result, $page)
+	{
+		include "res/teacher/index.php";
+	}
+	
 }

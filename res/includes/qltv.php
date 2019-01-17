@@ -42,18 +42,18 @@
 					}
 				?>
 			</td>
-			<td><?php echo $value['coin_user']; ?>đ</td>
+			<td><?php echo number_format($value['coin_user']); ?>đ</td>
 			<td>
 				<?php 
 				switch ($value["permission_user"]) {
 					case '1':
-						echo '<i style="color: blue;">Member</i>';
+						echo '<i style="color: white;background-color: blue;padding: 2px 10px;border-radius: 5px;">Member</i>';
 						break;
 					case '2':
-						echo '<i style="color: green;">Teacher</i>';
+						echo '<i style="color: white;background-color: green;padding: 2px 10px;border-radius: 5px;">Teacher</i>';
 						break;
 					case '3':
-						echo '<i style="color: red;">Admin</i>';
+						echo '<i style="color: white;background-color: red;padding: 2px 10px;border-radius: 5px;">Admin</i>';
 						break;
 					default:
 						echo 'Non-Active';
