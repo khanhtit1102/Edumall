@@ -146,7 +146,8 @@
 								<legend>- Chọn mệnh giá và nhấp vào nút dưới đây</legend>
 								<div class="form-group" style="width: 30%">
 									<label for="">Chọn mệnh giá:</label>
-									<select id="dolar" name="menh_gia" class="form-control">
+									<select id="dolar" name="menh_gia" class="form-control" onchange="usd(this.value)">
+										<option value="" disabled="" selected="">Chọn mệnh giá</option>
 										<option value="1">1.00 $</option>
 										<option value="5">5.00 $</option>
 										<option value="10">10.00 $</option>
@@ -168,7 +169,9 @@
 	</footer>
 	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
 	<script>
-		paypal.Button.render({
+		function usd(val) {
+			$('#paypal-button').empty();
+			paypal.Button.render({
 			env: '<?php echo PAYPAL_ENV; ?>',
 			client: {
 				<?php if(PRO_PAYPAL) { ?>
@@ -181,7 +184,7 @@
 				return actions.payment.create({
 					transactions: [{
 						amount: {
-							total: '1',
+							total: val,
 							currency: '<?php echo CURRENCY; ?>'
 						}
 					}]
@@ -194,6 +197,7 @@
 				});
 			}
 		}, '#paypal-button');
+		}
 	</script>
 	<script src="<?php echo base_url('res/'); ?>bs/js/jquery.js" type="text/javascript"></script>
 	<script src="<?php echo base_url('res/'); ?>bs/js/bootstrap.min.js" type="text/javascript"></script>

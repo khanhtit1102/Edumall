@@ -218,8 +218,22 @@ table{
 .chat li.left .chat-body {
     margin-left: 60px;
 }
+.chat li.left .chat-body p {
+    float: left;
+    background-color: #ddd;
+    color: #000;
+    padding: 8px;
+    border-radius: 8px;
+}
 .chat li.right .chat-body {
     margin-right: 60px;
+}
+.chat li.right .chat-body p {
+    float: right;
+    background-color: #448AFF;
+    color: #fff;
+    padding: 8px;
+    border-radius: 8px;
 }
 .chat li .chat-body p {
     margin: 0;

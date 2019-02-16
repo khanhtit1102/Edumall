@@ -389,4 +389,19 @@ class Admin_Panel extends CI_Controller {
         header("Content-Type: application/vnd.ms-excel");
         redirect("../res/exports/".$fileName);     
     }
+    public function chart()
+    {
+    	$model = new M_Admin();
+    	$count_all = $model->count_all_user();
+		$admin = $model->data_chart($per = 3);
+		$teacher = $model->data_chart($per = 2);
+		$user = $model->data_chart($per = 1);
+		$non_user = $model->data_chart($per = 0);
+		// Tinh Phan Tram
+		$percent['admin'] = round($admin / $count_all * 100,2);
+		$percent['teacher'] = round($teacher / $count_all * 100,2);
+		$percent['user'] = round($user / $count_all * 100,2);
+		$percent['non_user'] = round($non_user / $count_all * 100,2);
+		echo json_encode($percent);
+    }
 }

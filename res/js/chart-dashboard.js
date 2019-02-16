@@ -60,16 +60,22 @@ $(function() {
         hideHover: 'auto',
         resize: true
     });
+    var url = 'http://[::1]/Edumall/admin_panel/chart';
+    var success = function (result) {
+        var jsondata = $.parseJSON(result);
+        console.log()
+        Morris.Donut({
+          element: 'morris-donut-chart',
+          data: [
+          {value: jsondata.admin, label: 'Admin'},
+          {value: jsondata.teacher, label: 'Teacher'},
+          {value: jsondata.user, label: 'User'},
+          {value: jsondata.non_user, label: 'Non user'}
+          ],
+          formatter: function (x) { return x + "%"}
+      })
+    }
+    $.get(url,success);
     
-    Morris.Donut({
-      element: 'morris-donut-chart',
-      data: [
-      {value: 70, label: 'foo'},
-      {value: 15, label: 'bar'},
-      {value: 10, label: 'baz'},
-      {value: 5, label: 'A really really long label'}
-      ],
-      formatter: function (x) { return x + "%"}
-    })
-      resize: true
-});
+      // resize: true
+  });

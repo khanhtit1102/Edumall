@@ -198,4 +198,15 @@ class M_Admin extends CI_Model
         $query = $this->db->get();
         return $query->result_array();
     }
+   	// Chart
+   	public function count_all_user()
+   	{
+   		$user = $this->db->from('user');
+    	return $this->db->count_all_results();
+   	}
+   	public function data_chart($per)
+   	{
+        $this->db->from('user')->where('permission_user', $per);
+        return $this->db->count_all_results();
+   	}
 }

@@ -10,6 +10,7 @@ class Display extends CI_Controller {
 		$this->load->library("session");
 		// Kiểm tra đăng nhập
 		if ($this->session->has_userdata('id_user') == false) {
+			$this->session->set_flashdata('error', '<b>Một bước nữa</b><br>Bạn cần đăng nhập để xem chi tiết khóa học!');
 			redirect(base_url('auth/login'));
 		}
 	}

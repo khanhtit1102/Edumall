@@ -156,10 +156,11 @@
 			<div class="panel-footer">
 				<form action="" method="POST" role="form">
 					<div class="input-group">
-						<input type="text" class="form-control input-sm" name="content_chat" placeholder="Type your message here...">
+						<textarea class="form-control input-sm" rows="1" name="content_chat" placeholder="Type your message here..."></textarea>
+						<!-- <input type="text" class="form-control input-sm" name="content_chat" placeholder="Type your message here..."> -->
 						<span class="input-group-btn">
 							<button class="btn btn-warning btn-sm" type="submit" name="chat_admin" value="submit">
-								Send
+								Send <i class="fa fa-arrow-circle-right"></i>
 							</button>
 						</span>
 					</div>
