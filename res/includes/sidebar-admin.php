@@ -47,6 +47,14 @@
 				<li><a href="<?php echo base_url('admin_panel/chart_cmt') ?>"> Thống kê bình luận</a></li>
 			</ul>
 
+			<li data-toggle="collapse" data-target="#coupon" class="collapsed">
+				<a><i class="fa fa-gift fa-lg"></i> Mã giảm giá <span class="arrow"></span></a>
+			</li>
+			<ul class="sub-menu collapse" id="coupon">
+				<li><a href="<?php echo base_url('admin_panel/qlmgg') ?>"> Quản lý mã giảm giá</a></li>
+				<li><a href="<?php echo base_url('admin_panel/themmgg') ?>"> Thêm mã giảm giá</a></li>
+				<li><a href="<?php echo base_url('admin_panel/chart_mgg') ?>"> Thống kê mã giảm giá</a></li>
+			</ul>
 
 			<li>
 				<a href="<?php echo base_url('auth') ?>">

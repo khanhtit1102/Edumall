@@ -15,6 +15,7 @@ class M_Learn extends CI_Model
 	}
 	public function show_once($id_cs)
 	{
+		// SELECT * FROM course, user WHERE course.id_user = user.id_user AND id_cs = 12
 		$this->db->where('id_cs', $id_cs);
 		$this->db->where('course.id_user = user.id_user');
 		$query = $this->db->get('course, user');
@@ -29,5 +30,19 @@ class M_Learn extends CI_Model
 	public function add_comment($item)
 	{
 		$this->db->insert('cmt', $item);
+	}
+	public function show_link_episode($id_cs, $ep_number)
+	{
+		// SELECT * FROM episodes_course WHERE id_cs = 12 AND ep_number = 1
+		$this->db->where('id_cs', $id_cs)->where('ep_number', $ep_number);
+		$query = $this->db->get('episodes_course');
+		return $query->result_array();
+	}
+	public function show_episode($id_cs)
+	{
+		// SELECT * FROM episodes_course WHERE id_cs = 12 ORDER BY ep_number ASC
+		$this->db->where('id_cs', $id_cs)->order_by('ep_number', 'ASC');
+		$query = $this->db->get('episodes_course');
+		return $query->result_array();
 	}
 }

@@ -129,6 +129,7 @@ class M_Admin extends CI_Model
 	}
 	public function delete_course($id)
 	{
+		$this->db->where('id_cs', $id)->delete('episodes_course');
 		$this->db->where('id_cs', $id)->delete('cmt');
 		$this->db->where('id_cs', $id)->delete('own');
 		$this->db->where('id_cs', $id)->delete('cart');
@@ -136,6 +137,7 @@ class M_Admin extends CI_Model
 	}
 	public function multi_del_course($idToStr)
 	{
+		$this->db->where_in('id_cs', $idToStr)->delete('episodes_course');
 		$this->db->where_in('id_cs', $idToStr)->delete('cmt');
 		$this->db->where_in('id_cs', $idToStr)->delete('own');
 		$this->db->where_in('id_cs', $idToStr)->delete('cart');
@@ -150,9 +152,28 @@ class M_Admin extends CI_Model
 		$this->db->where('id_cs', $data['id_cs']);
 		$this->db->update('course', $data);
 	}
-	public function search_member($name, $keyword)
+	public function so_bai_hoc($id_cs)
 	{
-		$this->db->like($name, $keyword);
+		$this->db->select('sobh_cs')->where('id_cs', $id_cs);
+		$query = $this->db->get('course');
+		foreach ($query->result_array() as $row) {
+    		$sobh_cs = $row['sobh_cs'];
+    	}
+		return $sobh_cs;
+	}
+	public function load_episodes_course($id_cs)
+	{
+		$this->db->where('id_cs', $id_cs);
+		$query = $this->db->get('episodes_course');
+		return $query->result_array();
+	}
+	public function add_episodes_course($ep_number, $ep_title, $embed_code, $id_cs)
+	{
+		$this->db->set('id_cs', $id_cs);
+		$this->db->set('ep_number', $ep_number);
+		$this->db->set('ep_title', $ep_title);
+		$this->db->set('embed_code', $embed_code);
+		$this->db->insert('episodes_course');
 	}
 	public function qldh()
 	{
@@ -190,6 +211,26 @@ class M_Admin extends CI_Model
 		$this->db->set('date_payment', date('Y-m-d H:i:s'));
 		$this->db->where('id_payreq', $id_payreq);
 		$this->db->update('payment_request');
+	}
+	public function qlmgg()
+	{
+		$query = $this->db->get('coupon');
+		return $query->result_array();
+	}
+	public function delete_coupon($id)
+	{
+		$this->db->where('id_cp', $id)->delete('coupon');
+	}
+	public function add_coupon($add_data)
+	{
+		$this->db->insert('coupon', $add_data);
+	}
+	public function get_once_available()
+	{
+		// SELECT * FROM `coupon` WHERE `expiration_date` > 'today' LIMIT 0,1
+        $this->db->where('expiration_date >', date("Y-m-d"))->limit(1);
+		$query = $this->db->get('coupon');
+		return $query->result_array();
 	}
 	// Export data to Excel Files
     public function employeeList() {

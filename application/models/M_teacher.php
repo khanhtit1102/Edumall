@@ -91,6 +91,7 @@ class M_Teacher extends CI_Model
     }
     public function delete_course($id)
     {
+        $this->db->where('id_cs', $id)->delete('episodes_course');
         $this->db->where('id_cs', $id)->delete('cmt');
         $this->db->where('id_cs', $id)->delete('cart');
         $this->db->where('id_cs', $id)->delete('own');

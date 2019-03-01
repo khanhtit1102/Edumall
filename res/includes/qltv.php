@@ -11,16 +11,16 @@
 			<th><input type="checkbox" id="select_all" value=""/></th>
 			<th>Họ và Tên</th>
 			<th>Email</th>
-			<th>Giới tính</th>
 			<th>Tài khoản</th>
 			<th>Vai trò</th>
-			<th>Ngày tạo</th>
+			<th>Lần đăng nhập cuối</th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
 	<?php 
 		foreach ($result as $key => $value) {
+			$date = floor(abs(strtotime($value['last_login']) - strtotime(date('Y-m-d'))) / (60*60*24));
 	?>
 		<tr>
 			<td>
@@ -32,16 +32,6 @@
 			</td>
 			<td><?php echo $value['name_user']; ?></td>
 			<td><a href="mailto:<?php echo $value['email_user']; ?>"><?php echo $value['email_user']; ?></a></td>
-			<td>
-				<?php 
-					if ($value['sex_user'] == 0) {
-						echo "Nữ";
-					}
-					else{
-						echo "Nam";
-					}
-				?>
-			</td>
 			<td><?php echo number_format($value['coin_user']); ?>đ</td>
 			<td>
 				<?php 
@@ -61,10 +51,14 @@
 				}
 				?>
 			</td>
-			<td><?php echo $value['created_date']; ?></td>
+			<td><?php echo $value['last_login'].' '; if($date == 0){echo 'Hôm nay';} else{echo '('.$date.' ngày trước)';} ?></td>
 			<td>
 				<a class="btn btn-default" href="view_user/<?php echo $value['id_user']; ?>"><i class="fa fa-eye"></i></a>
 				<a class="btn btn-primary" href="edit_user/<?php echo $value['id_user']; ?>"><i class="fa fa-edit"></i></a>
+				<?php if ($date > 5) {
+				?>
+				<a class="btn btn-warning" href="send_mail?email=<?php echo $value['email_user']; ?>&subject=call-user-back" title="Gửi Email quay lại"><i class="fa fa-paper-plane"></i></a>
+				<?php } ?>
 				<?php if($value['id_user'] != 1 && $value['id_user'] != $_SESSION['id_user']){ ?>
 					<a class="btn btn-danger" href="delete_user/<?php echo $value['id_user']; ?>" onclick="return confirm('Bạn thực sự muốn xóa thành viên này?')"><i class="fa fa-trash-o"></i></a>
 				<?php } ?>
@@ -77,10 +71,9 @@
 			<th><button type="submit" name="delete" value="submit" class="btn btn-danger" id="multi-del">XÓA</button></th>
 			<th>Họ và Tên</th>
 			<th>Email</th>
-			<th>Giới tính</th>
 			<th>Tài khoản</th>
 			<th>Vai trò</th>
-			<th>Ngày tạo</th>
+			<th>Lần đăng nhập cuối</th>
 			<th></th>
 		</tr>
 	</tfoot>

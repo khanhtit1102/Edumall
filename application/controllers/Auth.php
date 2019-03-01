@@ -66,8 +66,6 @@ class Auth extends CI_Controller {
                 }
 			}
 			$view->show_info($data, $owner);
-
-			
 		}
 		else{
 			redirect(base_url('auth/login'));
@@ -299,7 +297,7 @@ class Auth extends CI_Controller {
 		
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
-     	$this->email->from('khanhtit113@gmail.com');
+     	$this->email->from('titkhanh0@gmail.com');
     	$this->email->to($email);
     	$this->email->subject($subject);
     	$this->email->message($message);

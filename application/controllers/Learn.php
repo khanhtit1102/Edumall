@@ -39,13 +39,20 @@ class Learn extends CI_Controller {
 			$item['ngay_cmt'] = date("Y-m-d H:i:s");
 			$model->add_comment($item);
 		}
-		
+		if ($this->input->get('episode')) {
+			$ep_number = $this->input->get('episode');
+		}
+		else{
+			$ep_number = 1;
+		}
 		$course = $model->show_once($id_cs);
+		$all_episodes = $model->show_episode($id_cs);
+		$link_episode = $model->show_link_episode($id_cs, $ep_number);
 		if ($course == null) {
 			redirect(base_url('courses'));
 		}
 		$comment = $model->show_comment($id_cs);
 		
-		$view->index($course, $comment);
+		$view->index($course, $all_episodes, $link_episode, $comment);
 	}
 }

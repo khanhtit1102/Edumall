@@ -36,6 +36,10 @@ class V_Admin
 	{
 		include "res/admin/index.php";
 	}
+	public function episodes_course($result, $page, $sobh_cs)
+	{
+		include "res/admin/index.php";
+	}
 	public function chart_course($result, $page)
 	{
 		include "res/admin/index.php";
@@ -57,6 +61,18 @@ class V_Admin
 		include "res/admin/index.php";
 	}
 	public function payment($result, $page)
+	{
+		include "res/admin/index.php";
+	}
+	public function qlmgg($result, $page)
+	{
+		include "res/admin/index.php";
+	}
+	public function themmgg($page)
+	{
+		include "res/admin/index.php";
+	}
+	public function send_mail($data, $page)
 	{
 		include "res/admin/index.php";
 	}

@@ -74,6 +74,55 @@ class Admin_Panel extends CI_Controller {
 		$page = 'qltv';
 		$view->qltv($result, $page);
 	}
+	public function send_mail()
+	{
+		$model = new M_Admin();
+		$view = new V_Admin();
+
+		$data['email'] = '';
+		$data['subject'] = '';
+		$data['message'] = '';
+
+
+		if ($this->input->get('email')) {
+			$data['email'] = $this->input->get('email');
+		}
+		if ($this->input->get('subject') == 'call-user-back' ) {
+
+			$data['subject'] = 'Edumall rất nhớ bạn!';
+
+			$coupon = $model->get_once_available();
+			$data_cp['code_cp'] = '';
+			foreach ($coupon as $key => $value) {
+				$data_cp['code_cp'] = $value['code_cp'];
+				$data_cp['percent_discount'] = $value['percent_discount'];
+				$data_cp['expiration_date'] = $value['expiration_date'];
+			}
+			if ($data_cp['code_cp'] != NULL) {
+				$data['message'] = "Đã lâu rồi chúng tôi không thấy bạn!<br>Hãy tiếp tục đăng nhập và trải nghiệm những khóa học của chúng tôi nào. Chúng tôi gửi bạn mã giảm giá mới nhất: <b><em>".$data_cp['code_cp']."</em></b> với ưu đãi <b>".$data_cp['percent_discount']."%</b> .<br>LƯU Ý: Mã giảm giá này chỉ có hạn đến ".$data_cp['expiration_date'].". <br>Hãy nhanh tay đăng nhập <a href='".base_url()."auth/login' taget='_blank'>tại đây</a> hoặc đường theo đường link sau: <br>".base_url('auth/login');
+			}
+			else{
+				$data['message'] = "Đã lâu rồi chúng tôi không thấy bạn!<br>Hãy tiếp tục đăng nhập và trải nghiệm những khóa học của chúng tôi nào. <br>Hãy nhanh tay đăng nhập <a href='".base_url()."auth/login' taget='_blank'>tại đây</a> hoặc đường theo đường link sau: <br>".base_url('auth/login');
+			}
+		}
+		if ($this->input->post('send_mail') == 'submit') {
+			$email = $this->input->post('email');
+			$subject = $this->input->post('subject');
+			$message = $this->input->post('message');
+			$result_email = $this->sendMail($email, $subject, $message);
+
+				// Đã gửi Email
+
+			if ($result_email == 1) {
+				$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>'.$message);
+			}
+			if ($result_email == 0) {
+				$this->session->set_flashdata('error', '<b>Lỗi gửi Email!<br>Đây là lỗi không có mạng.<br></b>'.$message);
+			}
+		}
+		$page = 'send_mail';
+		$view->send_mail($data, $page);
+	}
 	public function edit_user($id = '')
 	{
 		$model = new M_Admin();
@@ -187,7 +236,6 @@ class Admin_Panel extends CI_Controller {
 				$data['id_cate'] = $this->input->post('theloai_cs');
 				$data['sobh_cs'] = $this->input->post('sobh_cs');
 				$data['time_cs'] = $this->input->post('time_cs');
-				$data['playlist_key'] = $this->input->post('playlist_key');
 
 				if ($data['ten_cs'] == NULL) {
 					$this->session->set_flashdata('error', 'Không được để trống tên khóa học!');
@@ -221,7 +269,7 @@ class Admin_Panel extends CI_Controller {
 	}
 	public function add_course()
 	{
-		$model_update = new M_Admin();
+		$model = new M_Admin();
 		$view = new V_Admin();
 		if ($this->input->post('add_course') == 'submit') {
 			$data['ten_cs'] = $this->input->post('ten_cs');
@@ -233,9 +281,8 @@ class Admin_Panel extends CI_Controller {
 			$data['id_cate'] = $this->input->post('theloai_cs');
 			$data['sobh_cs'] = $this->input->post('sobh_cs');
 			$data['time_cs'] = $this->input->post('time_cs');
-			$data['playlist_key'] = $this->input->post('playlist_key');
 			$data['created_date'] = date("Y-m-d");
-			if ($data['ten_cs'] == NULL || $data['info_cs'] == NULL || $data['mota_cs'] == NULL || $data['giaotrinh_cs'] == NULL || $data['gia_cs'] == NULL || $data['id_cate'] == NULL || $data['sobh_cs'] == NULL || $data['time_cs'] == NULL || $data['playlist_key'] == NULL) {
+			if ($data['ten_cs'] == NULL || $data['info_cs'] == NULL || $data['mota_cs'] == NULL || $data['giaotrinh_cs'] == NULL || $data['gia_cs'] == NULL || $data['id_cate'] == NULL || $data['sobh_cs'] == NULL || $data['time_cs'] == NULL) {
 				$this->session->set_flashdata('error', '<b>Lỗi dữ liệu! </b>Không được để trống tất cả thông tin khóa học!');
 				redirect(base_url('admin_panel/add_course'));
 				die();
@@ -255,13 +302,31 @@ class Admin_Panel extends CI_Controller {
 				foreach ($upload_data as $key => $value) {
 					$data['thumb_cs'] = $value['file_name'];
 				}
-				$model_update->add_course($data);
-				$this->session->set_flashdata('error', '<b>Thành công!</b> Thêm khóa học thành công!');
+				$model->add_course($data);
+				$this->session->set_flashdata('error', '<b>Thành công!</b> Thêm khóa học thành công. Vui lòng thêm bài học!');
 				redirect(base_url('admin_panel/qlkh'));
 			}
 		}
 		$page = 'add_course';
 		$view->add_course($page);
+	}
+	public function episodes_course($id_cs = '')
+	{
+		$model = new M_Admin();
+		$view = new V_Admin();
+		$sobh_cs = $model->so_bai_hoc($id_cs);
+		if ($this->input->post('update_episodes_course')) {
+			$ep_number = $this->input->post('ep_number');
+			$ep_title = $this->input->post('ep_title');
+			$embed_code = $this->input->post('embed_code');
+			for ($i=0; $i < $sobh_cs; $i++) { 
+				$model->add_episodes_course($ep_number[$i], $ep_title[$i], $embed_code[$i], $id_cs);
+			}
+			$this->session->set_flashdata('error', '<b>Thành công!</b> Đã sửa thông tin bài học của khóa học!');
+		}
+		$result = $model->load_episodes_course($id_cs);
+		$page = 'episodes_course';
+		$view->episodes_course($result, $page, $sobh_cs);
 	}
 	public function chart_course()
 	{
@@ -298,6 +363,15 @@ class Admin_Panel extends CI_Controller {
 		$result = $model->qlbl();
 		$page = 'qlbl';
 		$view->qlbl($result, $page);
+	}
+	public function blqh()
+	{
+		$model = new M_Admin();
+		$view = new V_Admin();
+
+		$result = $model->blqh();
+		$page = 'blqh';
+		$view->blqh($result, $page);
 	}
 	public function delete_cmt($id = '')
 	{
@@ -336,6 +410,57 @@ class Admin_Panel extends CI_Controller {
 		$model->payment_accept($id_payreq);
 		$this->session->set_flashdata('error', '<b>Thành công! </b>Đã thanh toán thành công..!');
 		redirect(base_url('admin_panel/payment'));
+	}
+	public function qlmgg()
+	{
+		$model = new M_Admin();
+		$view = new V_Admin();
+
+		$result = $model->qlmgg();
+		$page = 'qlmgg';
+		$view->qlmgg($result, $page);
+	}
+	public function themmgg()
+	{
+		$model = new M_Admin();
+		$view = new V_Admin();
+
+		if ($this->input->post('add_coupon') == 'submit') {
+			$add_data['code_cp'] = $this->input->post('code_cp');
+			$add_data['percent_discount'] = $this->input->post('percent_discount');
+			$add_data['expiration_date'] = $this->input->post('expiration_date');
+			if ($add_data['code_cp'] == NULL || $add_data['percent_discount'] == NULL || $add_data['expiration_date'] == NULL) {
+				$this->session->set_flashdata('error', '<b>Lỗi dữ liệu! </b>Không được để trống bất cứ thông tin nào!');
+				redirect(base_url('admin_panel/themmgg'));
+				die();
+			}
+			else{
+				if ($add_data['percent_discount'] < 1 || $add_data['percent_discount'] > 100) {
+					$this->session->set_flashdata('error', '<b>Lỗi dữ liệu! </b>Chiết khấu không được nhỏ hơn 1 hoặc lớn hơn 100!');
+					redirect(base_url('admin_panel/themmgg'));
+					die();
+				}
+				else{
+					$model->add_coupon($add_data);
+					$this->session->set_flashdata('error', '<b>Thành công! </b>Mã giảm giá đã được thêm!');
+					redirect(base_url('admin_panel/qlmgg'));
+				}
+			}
+		}
+		$page = 'themmgg';
+		$view->themmgg($page);
+	}
+	public function delete_coupon($id = '')
+	{
+		$model = new M_Admin();
+		if ($id == null) {
+			redirect(base_url('admin_panel/qlmgg'));
+		}
+		else{
+			$model->delete_coupon($id);
+			$this->session->set_flashdata('error', 'Xóa mã giảm giá thành công!');
+			redirect(base_url('admin_panel/qlmgg'));
+		}
 	}
 	// Export data to Excel Files
 	public function createXLS() {
@@ -388,6 +513,37 @@ class Admin_Panel extends CI_Controller {
 		// Download file
         header("Content-Type: application/vnd.ms-excel");
         redirect("../res/exports/".$fileName);     
+    }
+    private function sendMail($email, $subject, $message)
+	{
+		$config = Array(
+			'protocol' => 'smtp',
+			'smtp_host' => 'ssl://smtp.googlemail.com',
+			'smtp_port' => 465,
+  			'smtp_user' => 'titkhanh0@gmail.com',
+  			'smtp_pass' => '',
+  			'mailtype' => 'html',
+  			'charset' => 'UTF-8',
+  			'wordwrap' => TRUE
+  			// Pass App: rghgevolbxsfjynh
+  		);
+		
+		$this->load->library('email', $config);
+		$this->email->set_newline("\r\n");
+     	$this->email->from('titkhanh0@gmail.com');
+    	$this->email->to($email);
+    	$this->email->subject($subject);
+    	$this->email->message($message);
+    	if($this->email->send())
+    	{
+    		$result = 1;
+    	}
+    	else
+    	{
+    		$result = 0;
+    		// show_error($this->email->print_debugger());
+    	}
+    	return $result;
     }
     public function chart()
     {

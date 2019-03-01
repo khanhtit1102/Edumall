@@ -45,10 +45,6 @@
 		<input type="text" class="form-control" name="time_cs" placeholder="Thời lượng">
 	</div>
 	<div class="form-group">
-		<label for="">Link khóa học</label>
-		<input type="text" class="form-control" name="playlist_key" placeholder="Link khóa học">
-	</div>
-	<div class="form-group">
 		<label for="">Ảnh</label>
 		<input type="file" class="form-control" name="thumb_cs" accept=".jpg, .png, .jpeg">
 	</div>

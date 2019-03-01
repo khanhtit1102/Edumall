@@ -39,6 +39,7 @@ class M_Auth extends CI_Model
 			}
 			else{
 				$this->session->set_userdata($session_user);
+				$this->update_login_time($this->session->userdata('id_user'));
 				$error = 1;
 			}
 		}
@@ -46,6 +47,13 @@ class M_Auth extends CI_Model
 			$error = 0;
 		}
 		return $error;
+	}
+	private function update_login_time($id_user)
+	{
+		$time = date('Y-m-d');
+		$this->db->set('last_login', $time);
+		$this->db->where('id_user', $id_user);
+		$this->db->update('user');
 	}
 	public function register($username, $email, $pass, $type_account, $job_user, $date, $code)
 	{
