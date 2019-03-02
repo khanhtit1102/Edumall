@@ -26,10 +26,9 @@
 					?>
 					<h4><?php echo 'Bài '.$row['ep_number'].': '.$row['ep_title']; ?></h4>
 					<span class="thumbnail">
-						<video width="740" height="398" controls controlsList="nodownload">
-							<source data-src="<?php echo base_url('res/uploads/') ?>testvideo.mp4" type="video/mp4">
+						<video width="740" height="398" controls autoplay controlsList="nodownload">
+							<source src="<?php echo base_url('res/uploads/').$row['video_name']; ?>" type="video/mp4">
 						</video>
-						<!-- <iframe width="740" height="398" src="https://www.youtube.com/embed/<?php echo $row['embed_code'] ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
 					</span>
 					<div class="info-author">
 						<p>Giảng Viên: <b><?php echo $value['name_user'] ?></b></p>
@@ -39,20 +38,25 @@
 				<?php } ?>
 				<div class="col-md-4">
 					<br><br>
-					<div class="comment">
-							<div class="panel panel-info">
-								<div class="panel-heading">
-									<h3 class="panel-title">Bình luận</h3>
-								</div>
+					<div class="panel-group" id="accordion">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+										Bình luận
+									</a>
+								</h4>
+							</div>
+							<div id="collapseOne" class="panel-collapse collapse in">
 								<div class="panel-body">
 									<div class="overflow">
-									<?php foreach ($comment as $key => $value) {
-									?>
-										<div class="hiencmt">
-											<p class="infocmt">[<?php echo $value['ten_cmt'] ?> | <?php echo $value['email_cmt'] ?>]</p>
-											<p class="ndcmt">Nội dung: <?php echo $value['nd_cmt'] ?></p>
-										</div>
-									<?php } ?>
+										<?php foreach ($comment as $key => $value) {
+											?>
+											<div class="hiencmt">
+												<p class="infocmt">[<?php echo $value['ten_cmt'] ?> | <?php echo $value['email_cmt'] ?>]</p>
+												<p class="ndcmt">Nội dung: <?php echo $value['nd_cmt'] ?></p>
+											</div>
+										<?php } ?>
 									</div>
 									<br><br>
 									<form action="" method="POST" role="form">
@@ -64,23 +68,22 @@
 									</form>
 								</div>
 							</div>
-					</div>
-					<div class="episode">
-						<div class="panel-group" id="accordion">
-							<div class="panel panel-primary">
-								<div class="panel-heading">
-									<h4 class="panel-title">
-										<a data-toggle="collapse" data-parent="#accordion" href="#show">
-											Lộ trình - Bài học
-										</a>
-									</h4>
-								</div>
-								<div id="show" class="panel-collapse collapse in">
-									<div class="panel-body">
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+										Lộ trình - Bài học
+									</a>
+								</h4>
+							</div>
+							<div id="collapseTwo" class="panel-collapse collapse">
+								<div class="panel-body">
+									<div class="overflow" style="height: 300px;">
 										<ul>
 											<?php $i=0; foreach ($all_episodes as $key => $value) { $i++;
 												?>
-												<li><a href="?episode=<?php echo $value['ep_number']; ?>"><button type="button" class="btn btn-default <?php if (isset($_GET['episode'])){if ($value['ep_number'] == $_GET['episode']) { echo 'active'; }} ?>" style="width: 100%;"><?php echo $i.' - '.$value['ep_title']; ?></button></a></li>
+												<li><a href="?episode=<?php echo $value['ep_number']; ?>"><button type="button" class="btn btn-default <?php if (isset($_GET['episode'])){if ($value['ep_number'] == $_GET['episode']) { echo 'active'; }} ?>" style="width: 100%; border: none;     text-align: left;"><b>Bài <?php echo $i.'</b> - '.$value['ep_title']; ?></button></a></li>
 											<?php } ?>
 										</ul>
 									</div>

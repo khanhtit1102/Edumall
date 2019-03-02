@@ -51,7 +51,7 @@
 				}
 				?>
 			</td>
-			<td><?php echo $value['last_login'].' '; if($date == 0){echo 'Hôm nay';} else{echo '('.$date.' ngày trước)';} ?></td>
+			<td><?php echo $value['last_login'].' '; if($date == 0){echo '(Hôm nay)';} else{echo '('.$date.' ngày trước)';} ?></td>
 			<td>
 				<a class="btn btn-default" href="view_user/<?php echo $value['id_user']; ?>"><i class="fa fa-eye"></i></a>
 				<a class="btn btn-primary" href="edit_user/<?php echo $value['id_user']; ?>"><i class="fa fa-edit"></i></a>

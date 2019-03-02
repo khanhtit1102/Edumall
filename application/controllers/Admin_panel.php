@@ -87,23 +87,33 @@ class Admin_Panel extends CI_Controller {
 		if ($this->input->get('email')) {
 			$data['email'] = $this->input->get('email');
 		}
-		if ($this->input->get('subject') == 'call-user-back' ) {
+		switch ($this->input->get('subject')) {
+			case 'call-user-back':
+				$data['subject'] = 'Edumall rất nhớ bạn!';
 
-			$data['subject'] = 'Edumall rất nhớ bạn!';
+				$coupon = $model->get_once_available();
+				$data_cp['code_cp'] = '';
+				foreach ($coupon as $key => $value) {
+					$data_cp['code_cp'] = $value['code_cp'];
+					$data_cp['percent_discount'] = $value['percent_discount'];
+					$data_cp['expiration_date'] = $value['expiration_date'];
+				}
+				if ($data_cp['code_cp'] != NULL) {
+					$data['message'] = "Đã lâu rồi chúng tôi không thấy bạn!<br>Hãy tiếp tục đăng nhập và trải nghiệm những khóa học của chúng tôi nào. Chúng tôi gửi bạn mã giảm giá mới nhất: <b><em>".$data_cp['code_cp']."</em></b> với ưu đãi <b>".$data_cp['percent_discount']."%</b> .<br>LƯU Ý: Mã giảm giá này chỉ có hạn đến ".$data_cp['expiration_date'].". <br>Hãy nhanh tay đăng nhập <a href='".base_url()."auth/login' taget='_blank'>tại đây</a> hoặc đường theo đường link sau: <br>".base_url('auth/login');
+				}
+				else{
+					$data['message'] = "Đã lâu rồi chúng tôi không thấy bạn!<br>Hãy tiếp tục đăng nhập và trải nghiệm những khóa học của chúng tôi nào. <br>Hãy nhanh tay đăng nhập <a href='".base_url()."auth/login' taget='_blank'>tại đây</a> hoặc đường theo đường link sau: <br>".base_url('auth/login');
+				}
+				break;
+			case 'reply_request_student':
+				$data['subject'] = 'Học viên tại Edumall cần bạn!';
+				$course = $this->input->get('course');
+				$data['message'] = "Có vẻ như bạn đã quên những bình luận của học viên!<br>Hãy đăng nhập và trả lời những bình luận của họ nào. <br>Việc trả lời giúp học viên hiểu rõ và tiếp thu được nhiều hơn từ khóa học của bạn!<br>Hãy nhanh tay đăng nhập và truy cập vào khóa học của bạn <a href='".base_url('learn/course/').$course."' taget='_blank'>tại đây</a> hoặc đường theo đường link sau: <br>".base_url('learn/course/').$course;
+				break;
 
-			$coupon = $model->get_once_available();
-			$data_cp['code_cp'] = '';
-			foreach ($coupon as $key => $value) {
-				$data_cp['code_cp'] = $value['code_cp'];
-				$data_cp['percent_discount'] = $value['percent_discount'];
-				$data_cp['expiration_date'] = $value['expiration_date'];
-			}
-			if ($data_cp['code_cp'] != NULL) {
-				$data['message'] = "Đã lâu rồi chúng tôi không thấy bạn!<br>Hãy tiếp tục đăng nhập và trải nghiệm những khóa học của chúng tôi nào. Chúng tôi gửi bạn mã giảm giá mới nhất: <b><em>".$data_cp['code_cp']."</em></b> với ưu đãi <b>".$data_cp['percent_discount']."%</b> .<br>LƯU Ý: Mã giảm giá này chỉ có hạn đến ".$data_cp['expiration_date'].". <br>Hãy nhanh tay đăng nhập <a href='".base_url()."auth/login' taget='_blank'>tại đây</a> hoặc đường theo đường link sau: <br>".base_url('auth/login');
-			}
-			else{
-				$data['message'] = "Đã lâu rồi chúng tôi không thấy bạn!<br>Hãy tiếp tục đăng nhập và trải nghiệm những khóa học của chúng tôi nào. <br>Hãy nhanh tay đăng nhập <a href='".base_url()."auth/login' taget='_blank'>tại đây</a> hoặc đường theo đường link sau: <br>".base_url('auth/login');
-			}
+			default:
+				
+				break;
 		}
 		if ($this->input->post('send_mail') == 'submit') {
 			$email = $this->input->post('email');
@@ -303,7 +313,11 @@ class Admin_Panel extends CI_Controller {
 					$data['thumb_cs'] = $value['file_name'];
 				}
 				$model->add_course($data);
-				$this->session->set_flashdata('error', '<b>Thành công!</b> Thêm khóa học thành công. Vui lòng thêm bài học!');
+				$newest_id = $model->get_id_newest_course($data);
+				for ($i=1; $i <= $data['sobh_cs']; $i++) { 
+					$model->add_episodes_course($newest_id, $i);
+				}
+				$this->session->set_flashdata('error', '<b>Thành công!</b> Thêm khóa học thành công. Vui lòng thêm bài học <a href="'.base_url('admin_panel/episodes_course/').$newest_id.'">tại đây</a>!');
 				redirect(base_url('admin_panel/qlkh'));
 			}
 		}
@@ -318,12 +332,35 @@ class Admin_Panel extends CI_Controller {
 		if ($this->input->post('update_episodes_course')) {
 			$ep_number = $this->input->post('ep_number');
 			$ep_title = $this->input->post('ep_title');
-			$embed_code = $this->input->post('embed_code');
-			for ($i=0; $i < $sobh_cs; $i++) { 
-				$model->add_episodes_course($ep_number[$i], $ep_title[$i], $embed_code[$i], $id_cs);
+			// Check xem là có file hay không?
+			if ($_FILES['video_name']['name'] != NULL) {
+				$config['upload_path']          = '././res/uploads/';
+				$config['allowed_types']        = 'mp4|ogg|ogv|avi|mov|flv';
+				$config['max_size']             = 102400;
+
+				$this->load->library('upload', $config);
+
+				if ( ! $this->upload->do_upload('video_name'))
+				{
+					$this->session->set_flashdata('error', '<b>Thất bại!</b><br>'.$this->upload->display_errors());
+				}
+				else
+				{
+					$upload_data = array('upload_data' => $this->upload->data());
+					foreach ($upload_data as $key => $value) {
+						$video_name = $value['file_name'];
+					}
+					$model->edit_episodes_course_with_video($ep_number, $ep_title, $id_cs, $video_name);
+					$this->session->set_flashdata('error', '<b>Thành công!</b> Đã upload video và sửa thông tin bài học của khóa học!');
+				}
 			}
-			$this->session->set_flashdata('error', '<b>Thành công!</b> Đã sửa thông tin bài học của khóa học!');
+			else{
+				// Không có video
+				$model->edit_episodes_course_without_video($ep_number, $ep_title, $id_cs);
+				$this->session->set_flashdata('error', '<b>Thành công!</b> Đã sửa thông tin bài học của khóa học!');
+			}
 		}
+		
 		$result = $model->load_episodes_course($id_cs);
 		$page = 'episodes_course';
 		$view->episodes_course($result, $page, $sobh_cs);

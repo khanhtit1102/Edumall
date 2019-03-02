@@ -147,6 +147,20 @@ class M_Admin extends CI_Model
 	{
 		$this->db->insert('course', $data);
 	}
+	public function get_id_newest_course($data)
+	{
+		$query = $this->db->get_where('course', $data);
+		foreach ($query->result_array() as $row) {
+    		$newest_id = $row['id_cs'];
+    	}
+		return $newest_id;
+	}
+	public function add_episodes_course($newest_id, $i)
+	{
+		$this->db->set('id_cs', $newest_id);
+		$this->db->set('ep_number', $i);
+		$this->db->insert('episodes_course');
+	}
 	public function update_course($data)
 	{
 		$this->db->where('id_cs', $data['id_cs']);
@@ -167,13 +181,20 @@ class M_Admin extends CI_Model
 		$query = $this->db->get('episodes_course');
 		return $query->result_array();
 	}
-	public function add_episodes_course($ep_number, $ep_title, $embed_code, $id_cs)
+	public function edit_episodes_course_without_video($ep_number, $ep_title, $id_cs)
 	{
-		$this->db->set('id_cs', $id_cs);
-		$this->db->set('ep_number', $ep_number);
 		$this->db->set('ep_title', $ep_title);
-		$this->db->set('embed_code', $embed_code);
-		$this->db->insert('episodes_course');
+		$this->db->where('id_cs', $id_cs);
+		$this->db->where('ep_number', $ep_number);
+		$this->db->update('episodes_course');
+	}
+	public function edit_episodes_course_with_video($ep_number, $ep_title, $id_cs, $video_name)
+	{
+		$this->db->set('ep_title', $ep_title);
+		$this->db->set('video_name', $video_name);
+		$this->db->where('id_cs', $id_cs);
+		$this->db->where('ep_number', $ep_number);
+		$this->db->update('episodes_course');
 	}
 	public function qldh()
 	{
@@ -187,8 +208,9 @@ class M_Admin extends CI_Model
 	}
 	public function qlbl()
 	{
-		$this->db->select('cmt.*, course.ten_cs')->where('cmt.id_cs = course.id_cs');
-		$query = $this->db->get('cmt, course');
+		// SELECT cmt.*, course.ten_cs, user.email_user FROM cmt, course, user WHERE cmt.id_cs = course.id_cs AND course.id_user = user.id_user
+		$this->db->select('cmt.*, course.ten_cs, user.email_user')->where('cmt.id_cs = course.id_cs')->where('course.id_user = user.id_user');
+		$query = $this->db->get('cmt, course, user');
 		return $query->result_array();
 	}
 	public function delete_cmt($id)

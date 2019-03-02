@@ -182,22 +182,22 @@
 				<div class="list-group">
 					<a href="#" class="list-group-item">
 						<i class="fa fa-book fa-fw"></i> Khóa học mới
-						<span class="pull-right small"><em><?php echo $newTime['courseTime'].' days ago' ?></em>
+						<span class="pull-right small"><em><?php if($newTime['courseTime']==0){echo "Hôm nay";} else{ echo $newTime['courseTime'].' ngày trước'; } ?></em>
 						</span>
 					</a>
 					<a href="#" class="list-group-item">
 						<i class="fa fa-user fa-fw"></i> Thành viên mới
-						<span class="pull-right small"><em><?php echo $newTime['userTime'].' days ago' ?></em>
+						<span class="pull-right small"><em><?php if($newTime['userTime']==0){echo "Hôm nay";} else{ echo $newTime['userTime'].' ngày trước'; } ?></em>
 						</span>
 					</a>
 					<a href="#" class="list-group-item">
 						<i class="fa fa-shopping-cart fa-fw"></i> Lượt mua khóa học mới
-						<span class="pull-right small"><em><?php echo $newTime['ownTime'].' days ago' ?></em>
+						<span class="pull-right small"><em><?php if($newTime['ownTime']==0){echo "Hôm nay";} else{ echo $newTime['ownTime'].' ngày trước'; } ?></em>
 						</span>
 					</a>
 					<a href="#" class="list-group-item">
 						<i class="fa fa-comment fa-fw"></i> Bình luận mới
-						<span class="pull-right small"><em><?php echo $newTime['cmtTime'].' days ago' ?></em>
+						<span class="pull-right small"><em><?php if($newTime['cmtTime']==0){echo "Hôm nay";} else{ echo $newTime['cmtTime'].' ngày trước'; } ?></em>
 						</span>
 					</a>
 					<a href="#" class="list-group-item">
