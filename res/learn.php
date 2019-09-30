@@ -99,8 +99,24 @@
 		<?php include "includes/footer.php" ?>
 	</footer>
 	<!-- Script -->
-	<script src="<?php echo base_url('res/'); ?>js/webjs.js"></script>
 	<script src="<?php echo base_url('res/'); ?>bs/js/jquery.js"></script>
 	<script src="<?php echo base_url('res/'); ?>bs/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$(this).bind("contextmenu", function(e) {
+				return false;
+			});
+			$(this).keydown(function(event) {
+				if (event.keyCode == 123 || (event.ctrlKey && event.keyCode == 85) || (event.ctrlKey && event.shiftKey && event.keyCode == 73)) {
+					alert('Disabled');
+					return false;
+				}
+				else if (event.ctrlKey && event.shiftKey && event.keyCode == 73) {
+					alert('Disabled');
+					return false;
+				}
+			});
+		});
+	</script>
 </body>
 </html>

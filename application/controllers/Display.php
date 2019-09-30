@@ -40,7 +40,9 @@ class Display extends CI_Controller {
 		}
 
 		$result = $model->show_once_course($id);
-		
+		if ($result == NULL) {
+			redirect(base_url('courses'));
+		}
 		$this->load->view('v_display');
 		$view = new V_Display();
 		$view->index($result, $status, $hasown);

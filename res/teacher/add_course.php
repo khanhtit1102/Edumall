@@ -5,11 +5,11 @@
 	<legend>Thêm mới khóa học</legend>
 	<div class="form-group">
 		<label for="">Tên Khoá học</label>
-		<input type="text" class="form-control" name="ten_cs" placeholder="Tên Khoá học">
+		<input type="text" class="form-control" name="ten_cs" placeholder="Tên Khoá học" autocomplete="off">
 	</div>
 	<div class="form-group">
 		<label for="">Thông tin thêm</label>
-		<input type="text" class="form-control" name="info_cs" placeholder="Thông tin thêm">
+		<input type="text" class="form-control" name="info_cs" placeholder="Thông tin thêm" autocomplete="off">
 	</div>
 	<div class="form-group">
 		<label for="">Mô tả</label>
@@ -21,7 +21,7 @@
 	</div>
 	<div class="form-group">
 		<label for="">Giá</label>
-		<input type="number" class="form-control" name="gia_cs" placeholder="Giá">
+		<input type="number" class="form-control" name="gia_cs" placeholder="Giá" autocomplete="off">
 	</div>
 	<div class="form-group">
 		<label for="">Thể loại</label>
@@ -38,15 +38,11 @@
 	</div>
 	<div class="form-group">
 		<label for="">Số bài</label>
-		<input type="number" class="form-control" name="sobh_cs" placeholder="Số bài">
+		<input type="number" class="form-control" name="sobh_cs" placeholder="Số bài" autocomplete="off">
 	</div>
 	<div class="form-group">
 		<label for="">Thời lượng</label>
-		<input type="text" class="form-control" name="time_cs" placeholder="Thời lượng">
-	</div>
-	<div class="form-group">
-		<label for="">Link khóa học</label>
-		<input type="text" class="form-control" name="playlist_key" placeholder="Link khóa học">
+		<input type="text" class="form-control" name="time_cs" placeholder="Thời lượng" autocomplete="off">
 	</div>
 	<div class="form-group">
 		<label for="">Ảnh</label>

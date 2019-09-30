@@ -17,7 +17,7 @@
 	?>
 		<tr>
 			<td><?php echo $i; ?></td>
-			<td><a href="<?php echo base_url('display?id=').$value['id_cs']; ?>"><?php echo $value['ten_cs']; ?></a></td>
+			<td><a href="<?php echo base_url('learn/course/').$value['id_cs']; ?>"><?php echo $value['ten_cs']; ?></a></td>
 			<td><?php echo $value['ten_cmt']; ?></td>
 			<td><?php echo $value['email_cmt']; ?></td>
 			<td><?php echo $value['nd_cmt']; ?></td>

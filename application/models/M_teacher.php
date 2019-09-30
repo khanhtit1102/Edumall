@@ -68,6 +68,50 @@ class M_Teacher extends CI_Model
         $query = $this->db->get('course');
         return $query->result_array();
     }
+    public function so_bai_hoc($id_cs)
+    {
+        $this->db->select('sobh_cs')->where('id_cs', $id_cs);
+        $query = $this->db->get('course');
+        foreach ($query->result_array() as $row) {
+            $sobh_cs = $row['sobh_cs'];
+        }
+        return $sobh_cs;
+    }
+    public function load_episodes_course($id_cs)
+    {
+        $this->db->where('id_cs', $id_cs);
+        $query = $this->db->get('episodes_course');
+        return $query->result_array();
+    }
+    public function edit_episodes_course_without_video($ep_number, $ep_title, $id_cs)
+    {
+        $this->db->set('ep_title', $ep_title);
+        $this->db->where('id_cs', $id_cs);
+        $this->db->where('ep_number', $ep_number);
+        $this->db->update('episodes_course');
+    }
+    public function edit_episodes_course_with_video($ep_number, $ep_title, $id_cs, $video_name)
+    {
+        $this->db->set('ep_title', $ep_title);
+        $this->db->set('video_name', $video_name);
+        $this->db->where('id_cs', $id_cs);
+        $this->db->where('ep_number', $ep_number);
+        $this->db->update('episodes_course');
+    }
+    public function get_id_newest_course($data)
+    {
+        $query = $this->db->get_where('course', $data);
+        foreach ($query->result_array() as $row) {
+            $newest_id = $row['id_cs'];
+        }
+        return $newest_id;
+    }
+    public function add_episodes_course($newest_id, $i)
+    {
+        $this->db->set('id_cs', $newest_id);
+        $this->db->set('ep_number', $i);
+        $this->db->insert('episodes_course');
+    }
     public function show_one_course($id)
     {
         $this->db->select('course.*, user.name_user');

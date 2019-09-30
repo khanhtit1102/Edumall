@@ -146,15 +146,15 @@
 		window.onscroll = function() {scrollFunction()};
 
 		function scrollFunction() {
-			if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
+			if (document.body.scrollTop > 640 || document.documentElement.scrollTop > 640) {
 				document.getElementById("phai").style.position = "absolute";
 			} else {
 				document.getElementById("phai").style.position = "fixed";
 			}
 		}
 	</script>
-	<script src="<?php echo base_url('res/'); ?>js/webjs.js"></script>
 	<script src="<?php echo base_url('res/'); ?>bs/js/jquery.js"></script>
+	<script src="<?php echo base_url('res/'); ?>js/webjs.js"></script>
 	<script src="<?php echo base_url('res/'); ?>bs/js/bootstrap.min.js"></script>
 </body>
 </html>

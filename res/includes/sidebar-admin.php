@@ -15,6 +15,7 @@
 			<ul class="sub-menu collapse" id="member">
 				<li><a href="<?php echo base_url('admin_panel/qltv') ?>"> Tất cả thành viên</a></li>
 				<li><a href="<?php echo base_url('admin_panel/add_user') ?>"> Thêm thành viên mới</a></li>
+				<li><a href="<?php echo base_url('admin_panel/export_member') ?>"> Xuất file Excel</a></li>
 				<li><a href="<?php echo base_url('admin_panel/chart_user') ?>"> Thống kê thành viên</a></li>
 			</ul>
 

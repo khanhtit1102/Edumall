@@ -78,13 +78,31 @@ class M_Cart extends CI_Model
 		$this->db->where('id_user', $id);
 		$result = $this->db->get('cart')->result_array();
 		foreach ($result as $row) {
+
 			$data = array(
 				'id_user' => $row['id_user'],
 				'id_cs' => $row['id_cs'],
 				'id_cp' => $id_cp,
 				'date_own' => date("Y-m-d"),
 			);
+			// Cộng tiền cho chủ khóa học (Giáo viên)
+			$this->db->where('id_cs', $data['id_cs']);
+			$result2 = $this->db->get('course')->result_array();
+			foreach ($result2 as $row2) {
+				$id_teacher = $row2['id_user'];
+				$money = $row2['gia_cs']-$row2['gia_cs']*40/100;
+			}
+			$this->db->where('id_user', $id_teacher);
+			$result3 = $this->db->get('user')->result_array();
+			foreach ($result3 as $row3) {
+				$old_money = $row3['coin_user']+$money;
+				$this->db->set('coin_user', $old_money, FALSE);
+				$this->db->where('id_user', $id_teacher);
+				$this->db->update('user');
+			}
+			// Kết thúc cộng tiền cho chủ khóa học
 			$this->db->insert('own', $data);
+
 		}
 		$this->delete_all_cart($id);
 		# Update tiền cho user

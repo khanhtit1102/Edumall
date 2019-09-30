@@ -22,7 +22,7 @@
 	?>
 		<tr>
 			<td><input type="checkbox" name="id[]" class="checkbox" value="<?php echo $value['id_cs']; ?>"></td>
-			<td><a href="<?php echo base_url('display?id=').$value['id_cs'] ?>"><?php echo $value['ten_cs']; ?></a></td>
+			<td><a href="<?php echo base_url('display?id=').$value['id_cs'] ?>" title="<?php echo $value['ten_cs']; ?>"><?php echo $value['ten_cs']; ?></a></td>
 			<td><?php echo $value['name_user']; ?></td>
 			<td><?php echo $value['gia_cs']; ?>đ</td>
 			<td>

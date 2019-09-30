@@ -14,16 +14,22 @@ class Courses extends CI_Controller {
 	public function index()
 	{
 		// Lọc
-		if ($this->input->post('filter') == 'filter') {
+		if ($this->input->post('filter')) {
 			$name = $this->input->post('name');
 			$price = $this->input->post('price');
 			if ($name != '' && $price != '') {
 				$filter = $name.', '.$price;
 			}
-			else{
+			if ($name != '' && $price == '') {
+				$filter = $name;
+			}
+			if ($price != '' && $name == '') {
+				$filter = $price;
+			}
+			if ($name == '' && $price == '') {
 				$filter = 'id_cs ASC';
 			}
-			$this->session->set_userdata("filter", "$filter");
+			$this->session->set_userdata("filter", $filter);
 		}
 		else{
 			if ($this->session->has_userdata('filter')) {

@@ -23,11 +23,12 @@ class Learn extends CI_Controller {
 		# Kiểm tra sở hữu khóa học
 		$id_user = $this->session->userdata('id_user');
 		$per_user = $this->session->userdata('permission_user');
-		$check = $model->check_own($id_user, $id_cs);
+		$check_own = $model->check_own($id_user, $id_cs);
+		$check_teacher = $model->check_teacher($id_user, $id_cs);
 		if ($per_user != 3) {
-			if ($check != 1) {
-				echo "<script type='text/javascript'>alert('Bạn chưa sở hữu khóa học này!');</script>";
-				echo "<meta http-equiv='refresh' content='0; url=".base_url('courses')."' />";
+			if ($check_own != 1 && $check_teacher != 1) {
+				$this->session->set_flashdata('error', 'Bạn chưa sở hữu khóa học này!'.$message);
+				redirect(base_url('auth'));
 			}
 		}
 		//Thêm comment

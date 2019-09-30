@@ -13,6 +13,11 @@ class M_Learn extends CI_Model
 		$this->db->from('own')->where('id_user', $id_user)->where('id_cs', $id_cs);
     	return $this->db->count_all_results();
 	}
+	public function check_teacher($id_user, $id_cs)
+	{
+		$this->db->from('course')->where('id_user', $id_user)->where('id_cs', $id_cs);
+    	return $this->db->count_all_results();
+	}
 	public function show_once($id_cs)
 	{
 		// SELECT * FROM course, user WHERE course.id_user = user.id_user AND id_cs = 12

@@ -500,7 +500,7 @@ class Admin_Panel extends CI_Controller {
 		}
 	}
 	// Export data to Excel Files
-	public function createXLS() {
+	public function export_member() {
 		// Delete all file
 		$files = glob('res/exports/*'); 
 		foreach($files as $file){
@@ -508,7 +508,7 @@ class Admin_Panel extends CI_Controller {
 				unlink($file);
 		}
 		// Create file name
-        $fileName = 'data-'.date('d-m-Y').'.xlsx';  
+        $fileName = 'thanhvien-'.date('d-m-Y').'.xlsx';  
 		// Load excel library
         $this->load->library('excel');
         $model = new M_Admin();
@@ -557,17 +557,16 @@ class Admin_Panel extends CI_Controller {
 			'protocol' => 'smtp',
 			'smtp_host' => 'ssl://smtp.googlemail.com',
 			'smtp_port' => 465,
-  			'smtp_user' => 'titkhanh0@gmail.com',
-  			'smtp_pass' => '',
+  			'smtp_user' => 'khanhtitwebdev@gmail.com',
+  			'smtp_pass' => 'jigbqrllpxwgdgdo',
   			'mailtype' => 'html',
   			'charset' => 'UTF-8',
   			'wordwrap' => TRUE
-  			// Pass App: rghgevolbxsfjynh
   		);
 		
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
-     	$this->email->from('titkhanh0@gmail.com');
+     	$this->email->from('khanhtitwebdev@gmail.com');
     	$this->email->to($email);
     	$this->email->subject($subject);
     	$this->email->message($message);

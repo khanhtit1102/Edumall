@@ -43,11 +43,15 @@
 <?php 
 	foreach ($result as $key => $value) {
  ?>
+<ul class="error" style="color: red;">
+	<?php 
+	if (isset($_SESSION['error'])) {
+		echo $_SESSION['error'];
+	}
+	 ?>
+</ul>
 <form action="" method="POST" role="form">
-	<legend>Chỉnh sửa thông tin cho sản phầm</legend>
-	<?php if (isset($_SESSION['error'])) {
-		echo '<div class="alert alert-success" role="alert">'.$_SESSION['error'].'</div>';
-	} ?>
+	<legend>Chỉnh sửa thông tin cho khóa học</legend>
 	<div class="form-group">
 		<label for="">Tên Khoá học</label>
 		<input type="text" class="form-control" name="ten_cs" placeholder="Tên Khoá học" value="<?php echo $value["ten_cs"]; ?>">
@@ -83,10 +87,6 @@
 	<div class="form-group">
 		<label for="">Thời lượng</label>
 		<input type="text" class="form-control" name="time_cs" placeholder="Thời lượng" value="<?php echo $value["time_cs"]; ?>">
-	</div>
-	<div class="form-group">
-		<label for="">Link khóa học</label>
-		<input type="text" class="form-control" name="playlist_key" placeholder="Link khóa học" value="<?php echo $value["playlist_key"]; ?>">
 	</div>
 	<!-- <div class="form-group">
 		<label for="">Ảnh</label>

@@ -26,7 +26,7 @@
 								<ul class="error" style="color: red;"><?php echo validation_errors('- '); if (isset($_SESSION['error'])) {
 									echo '- '.$_SESSION['error'];
 								} ?></ul>
-								<input type="text" class="form-control" name="email" id="email" placeholder="Email" autocomplete="off" value="admin@admin.com">
+								<input type="text" class="form-control" name="email" id="email" placeholder="Email" autocomplete="off" value="quantrivien-web@gmail.com">
 								<input type="password" class="form-control" name="pass" id="pass" placeholder="Mật khẩu" value="123456">
 							</div>
 							<div id="btnsubmit">

@@ -63,7 +63,7 @@ $(function() {
     var url = 'http://[::1]/Edumall/admin_panel/chart';
     var success = function (result) {
         var jsondata = $.parseJSON(result);
-        console.log()
+        // console.log()
         Morris.Donut({
           element: 'morris-donut-chart',
           data: [

@@ -149,7 +149,11 @@ class M_Admin extends CI_Model
 	}
 	public function get_id_newest_course($data)
 	{
-		$query = $this->db->get_where('course', $data);
+		$this->db->from('course');
+		$this->db->where('id_user', $data['id_user']);
+		$this->db->where('ten_cs', $data['ten_cs']);
+		$this->db->where('thumb_cs', $data['thumb_cs']);
+		$query = $this->db->get();
 		foreach ($query->result_array() as $row) {
     		$newest_id = $row['id_cs'];
     	}

@@ -31,5 +31,8 @@ class V_Teacher
 	{
 		include "res/teacher/index.php";
 	}
-	
+	public function episodes_course($result, $page, $sobh_cs)
+	{
+		include "res/teacher/index.php";
+	}
 }

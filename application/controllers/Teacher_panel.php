@@ -144,12 +144,12 @@ class Teacher_Panel extends CI_Controller {
 				$data['id_cate'] = $this->input->post('theloai_cs');
 				$data['sobh_cs'] = $this->input->post('sobh_cs');
 				$data['time_cs'] = $this->input->post('time_cs');
-				$data['playlist_key'] = $this->input->post('playlist_key');
 
-				if ($data['ten_cs'] == NULL || $data['info_cs'] == NULL || $data['mota_cs'] == NULL || $data['giaotrinh_cs'] == NULL || $data['gia_cs'] == NULL || $data['id_cate'] == NULL || $data['sobh_cs'] == NULL || $data['time_cs'] == NULL || $data['playlist_key'] == NULL) {
-					$this->session->set_flashdata('error', '<b>Lỗi dữ liệu! </b>Không được để trống tất cả thông tin khóa học!');
+				if ($data['ten_cs'] == NULL) {
+					$this->session->set_flashdata('error', 'Không được để trống tên khóa học!');
 					redirect(base_url('teacher_panel/edit_course/'.$id));
 				}
+
 				$model->update_course($data);
 				$this->session->set_flashdata('error', 'Sửa khóa học thành công!');
 				redirect(base_url('teacher_panel/qlkh'));
@@ -161,9 +161,44 @@ class Teacher_Panel extends CI_Controller {
 			$view->edit_course($result, $page);
 		}
 	}
+	// public function edit_course($id = '')
+	// {
+	// 	$model = new M_Teacher();
+	// 	$view = new V_Teacher();
+	// 	if ($id == null) {
+	// 		redirect(base_url('teacher_panel/qlkh'));
+	// 	}
+	// 	else{
+	// 		if ($this->input->post('update_course') == 'submit') {
+	// 			$data['id_cs'] = $id;
+	// 			$data['ten_cs'] = $this->input->post('ten_cs');
+	// 			$data['info_cs'] = $this->input->post('info_cs');
+	// 			$data['mota_cs'] = $this->input->post('mota_cs');
+	// 			$data['giaotrinh_cs'] = $this->input->post('giaotrinh_cs');
+	// 			$data['gia_cs'] = $this->input->post('gia_cs');
+	// 			$data['id_cate'] = $this->input->post('theloai_cs');
+	// 			$data['sobh_cs'] = $this->input->post('sobh_cs');
+	// 			$data['time_cs'] = $this->input->post('time_cs');
+	// 			$data['playlist_key'] = $this->input->post('playlist_key');
+
+	// 			if ($data['ten_cs'] == NULL || $data['info_cs'] == NULL || $data['mota_cs'] == NULL || $data['giaotrinh_cs'] == NULL || $data['gia_cs'] == NULL || $data['id_cate'] == NULL || $data['sobh_cs'] == NULL || $data['time_cs'] == NULL || $data['playlist_key'] == NULL) {
+	// 				$this->session->set_flashdata('error', '<b>Lỗi dữ liệu! </b>Không được để trống tất cả thông tin khóa học!');
+	// 				redirect(base_url('teacher_panel/edit_course/'.$id));
+	// 			}
+	// 			$model->update_course($data);
+	// 			$this->session->set_flashdata('error', 'Sửa khóa học thành công!');
+	// 			redirect(base_url('teacher_panel/qlkh'));
+	// 		}
+			
+			
+	// 		$result = $model->show_one_course($id);
+	// 		$page = 'edit_course';
+	// 		$view->edit_course($result, $page);
+	// 	}
+	// }
 	public function add_course()
 	{
-		$model_update = new M_Teacher();
+		$model = new M_Teacher();
 		$view = new V_Teacher();
 		if ($this->input->post('add_course') == 'submit') {
 			$data['ten_cs'] = $this->input->post('ten_cs');
@@ -175,11 +210,11 @@ class Teacher_Panel extends CI_Controller {
 			$data['id_cate'] = $this->input->post('theloai_cs');
 			$data['sobh_cs'] = $this->input->post('sobh_cs');
 			$data['time_cs'] = $this->input->post('time_cs');
-			$data['playlist_key'] = $this->input->post('playlist_key');
 			$data['created_date'] = date("Y-m-d");
-			if ($data['ten_cs'] == NULL || $data['info_cs'] == NULL || $data['mota_cs'] == NULL || $data['giaotrinh_cs'] == NULL || $data['gia_cs'] == NULL || $data['id_cate'] == NULL || $data['sobh_cs'] == NULL || $data['time_cs'] == NULL || $data['playlist_key'] == NULL) {
+			if ($data['ten_cs'] == NULL || $data['info_cs'] == NULL || $data['mota_cs'] == NULL || $data['giaotrinh_cs'] == NULL || $data['gia_cs'] == NULL || $data['id_cate'] == NULL || $data['sobh_cs'] == NULL || $data['time_cs'] == NULL) {
 				$this->session->set_flashdata('error', '<b>Lỗi dữ liệu! </b>Không được để trống tất cả thông tin khóa học!');
 				redirect(base_url('teacher_panel/add_course'));
+				die();
 			}
 			// Upload Image
 			$config['upload_path']          = 'res/uploads';
@@ -196,14 +231,102 @@ class Teacher_Panel extends CI_Controller {
 				foreach ($upload_data as $key => $value) {
 					$data['thumb_cs'] = $value['file_name'];
 				}
-				$model_update->add_course($data);
-				$this->session->set_flashdata('error', 'Thêm khóa học thành công!');
+				$model->add_course($data);
+				$newest_id = $model->get_id_newest_course($data);
+				for ($i=1; $i <= $data['sobh_cs']; $i++) { 
+					$model->add_episodes_course($newest_id, $i);
+				}
+				$this->session->set_flashdata('error', '<b>Thành công!</b> Thêm khóa học thành công. Vui lòng thêm bài học <a href="'.base_url('teacher_panel/episodes_course/').$newest_id.'">tại đây</a>!');
 				redirect(base_url('teacher_panel/qlkh'));
 			}
 		}
 		$page = 'add_course';
 		$view->add_course($page);
 	}
+	public function episodes_course($id_cs = '')
+	{
+		$model = new M_Teacher();
+		$view = new V_Teacher();
+		$sobh_cs = $model->so_bai_hoc($id_cs);
+		if ($this->input->post('update_episodes_course')) {
+			$ep_number = $this->input->post('ep_number');
+			$ep_title = $this->input->post('ep_title');
+			// Check xem là có file hay không?
+			if ($_FILES['video_name']['name'] != NULL) {
+				$config['upload_path']          = '././res/uploads/';
+				$config['allowed_types']        = 'mp4|ogg|ogv|avi|mov|flv';
+				$config['max_size']             = 102400;
+
+				$this->load->library('upload', $config);
+
+				if ( ! $this->upload->do_upload('video_name'))
+				{
+					$this->session->set_flashdata('error', '<b>Thất bại!</b><br>'.$this->upload->display_errors());
+				}
+				else
+				{
+					$upload_data = array('upload_data' => $this->upload->data());
+					foreach ($upload_data as $key => $value) {
+						$video_name = $value['file_name'];
+					}
+					$model->edit_episodes_course_with_video($ep_number, $ep_title, $id_cs, $video_name);
+					$this->session->set_flashdata('error', '<b>Thành công!</b> Đã upload video và sửa thông tin bài học của khóa học!');
+				}
+			}
+			else{
+				// Không có video
+				$model->edit_episodes_course_without_video($ep_number, $ep_title, $id_cs);
+				$this->session->set_flashdata('error', '<b>Thành công!</b> Đã sửa thông tin bài học của khóa học!');
+			}
+		}
+		
+		$result = $model->load_episodes_course($id_cs);
+		$page = 'episodes_course';
+		$view->episodes_course($result, $page, $sobh_cs);
+	}
+	// public function add_course()
+	// {
+	// 	$model_update = new M_Teacher();
+	// 	$view = new V_Teacher();
+	// 	if ($this->input->post('add_course') == 'submit') {
+	// 		$data['ten_cs'] = $this->input->post('ten_cs');
+	// 		$data['info_cs'] = $this->input->post('info_cs');
+	// 		$data['id_user'] = $this->session->userdata('id_user');
+	// 		$data['mota_cs'] = $this->input->post('mota_cs');
+	// 		$data['giaotrinh_cs'] = $this->input->post('giaotrinh_cs');
+	// 		$data['gia_cs'] = $this->input->post('gia_cs');
+	// 		$data['id_cate'] = $this->input->post('theloai_cs');
+	// 		$data['sobh_cs'] = $this->input->post('sobh_cs');
+	// 		$data['time_cs'] = $this->input->post('time_cs');
+	// 		$data['playlist_key'] = $this->input->post('playlist_key');
+	// 		$data['created_date'] = date("Y-m-d");
+	// 		if ($data['ten_cs'] == NULL || $data['info_cs'] == NULL || $data['mota_cs'] == NULL || $data['giaotrinh_cs'] == NULL || $data['gia_cs'] == NULL || $data['id_cate'] == NULL || $data['sobh_cs'] == NULL || $data['time_cs'] == NULL || $data['playlist_key'] == NULL) {
+	// 			$this->session->set_flashdata('error', '<b>Lỗi dữ liệu! </b>Không được để trống tất cả thông tin khóa học!');
+	// 			redirect(base_url('teacher_panel/add_course'));
+	// 		}
+	// 		// Upload Image
+	// 		$config['upload_path']          = 'res/uploads';
+	// 		$config['allowed_types']        = 'jpeg|jpg|png';
+	// 		$config['max_size']             = 10240;
+	// 		$this->load->library('upload', $config);
+	// 		if ( ! $this->upload->do_upload('thumb_cs'))
+	// 		{
+	// 			$this->session->set_flashdata('error', '<b>Lỗi!</b> Ảnh không được tải lên.'.$this->upload->display_errors());
+	// 		}
+	// 		else
+	// 		{
+	// 			$upload_data = array('upload_data' => $this->upload->data());
+	// 			foreach ($upload_data as $key => $value) {
+	// 				$data['thumb_cs'] = $value['file_name'];
+	// 			}
+	// 			$model_update->add_course($data);
+	// 			$this->session->set_flashdata('error', 'Thêm khóa học thành công!');
+	// 			redirect(base_url('teacher_panel/qlkh'));
+	// 		}
+	// 	}
+	// 	$page = 'add_course';
+	// 	$view->add_course($page);
+	// }
 	public function qlbl()
 	{
 		$model = new M_Teacher();
