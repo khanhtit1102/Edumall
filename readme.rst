@@ -1,7 +1,9 @@
 ###################
 Edumall - CodeIgniter
 ###################
-Author: `Facebook <https://www.facebook.com/FindOut.K.T>`_
+Contact Me: `Facebook <https://www.facebook.com/FindOut.K.T>`_ , `Gmail <mailto:khanhtitictu@gmail.com>`_
+
+Live demo with Administrator: https://elearning.khanhtitictu.website/
 
 Hướng dẫn sử dụng và cài đặt:
 
