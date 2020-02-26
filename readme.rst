@@ -1,6 +1,9 @@
 ###################
 Edumall - CodeIgniter
 ###################
+
+Hệ thống học trực tuyến qua video dựa theo mô hình của website `Edumall <https://edumall.vn/>`_  được phát triển nhằm mục đích học tập, không nhằm mục đích sao chép.
+
 Contact Me: `Facebook <https://www.facebook.com/FindOut.K.T>`_ , `Gmail <mailto:khanhtitictu@gmail.com>`_
 
 Live demo with Administrator: https://elearning.khanhtitictu.website/
