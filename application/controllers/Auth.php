@@ -160,6 +160,7 @@ class Auth extends CI_Controller {
 			$job_user = $this->input->post('job');
 			$date = date("Y-m-d");
 			$code = $this->generateRandomString();
+          	$subject = "Kích hoạt tài khoản của bạn";
 
 			// Tạo dữ liệu gửi Email
 
@@ -173,7 +174,7 @@ class Auth extends CI_Controller {
 			// Đã gửi Email
 
 			if ($result == 1) {
-				$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>Hãy kiểm tra lại hộp thư đến trong Email để xác nhận!<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
+				$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>Hãy kiểm tra lại hộp thư đến trong Email để xác nhận!');
 			}
 			if ($result == 0) {
 				$this->session->set_flashdata('error', '<b>Lỗi gửi Email!</b><br>Đây là lỗi của chúng tôi.<br>Liên hệ <a href="mailto:khanhtit113@gmail.com">Admin</a> để báo lỗi.<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
@@ -255,7 +256,7 @@ class Auth extends CI_Controller {
 			$this->load->model('m_auth');
 			$model = new M_Auth();	
 			$result = $model->forgot_pass($email);
-
+			$subject = "Yêu cầu đặt lại mật khẩu";
 			// Nếu nhập đúng Email có trong hệ thống
 			if ($result == 1) {
 
@@ -268,7 +269,7 @@ class Auth extends CI_Controller {
 				// Đã gửi Email
 
 				if ($result_email == 1) {
-					$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>Hãy kiểm tra lại hộp thư đến trong Email để xác nhận!<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
+					$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>Hãy kiểm tra lại hộp thư đến trong Email để xác nhận!');
 				}
 				if ($result_email == 0) {
 					$this->session->set_flashdata('error', '<b>Lỗi gửi Email!</b><br>Đây là lỗi của chúng tôi.<br>Liên hệ <a href="mailto:khanhtit113@gmail.com">Admin</a> để báo lỗi.<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
@@ -287,8 +288,8 @@ class Auth extends CI_Controller {
 			'protocol' => 'smtp',
 			'smtp_host' => 'ssl://smtp.googlemail.com',
 			'smtp_port' => 465,
-  			'smtp_user' => 'khanhtitwebdev@gmail.com',
-  			'smtp_pass' => 'jigbqrllpxwgdgdo',
+  			'smtp_user' => 'khanhtit113@gmail.com',
+  			'smtp_pass' => 'wnbkszmhmdamymls',
   			'mailtype' => 'html',
   			'charset' => 'UTF-8',
   			'wordwrap' => TRUE

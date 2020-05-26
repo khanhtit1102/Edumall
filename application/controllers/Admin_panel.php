@@ -557,8 +557,8 @@ class Admin_Panel extends CI_Controller {
 			'protocol' => 'smtp',
 			'smtp_host' => 'ssl://smtp.googlemail.com',
 			'smtp_port' => 465,
-  			'smtp_user' => 'khanhtitwebdev@gmail.com',
-  			'smtp_pass' => 'jigbqrllpxwgdgdo',
+  			'smtp_user' => 'khanhtit113@gmail.com',
+  			'smtp_pass' => 'wnbkszmhmdamymls',
   			'mailtype' => 'html',
   			'charset' => 'UTF-8',
   			'wordwrap' => TRUE

@@ -5,7 +5,7 @@
 	<meta content='Học trực tuyến cùng với những Giảng viên hàng đầu. Học online 24/7 - Tự tin làm chủ tương lai. Siêu thị bài giảng trực tuyến lớn nhất Việt Nam' name='description'>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<link rel="shortcut icon" type="image/x-icon" href="res/imgs/icon.png">
-	<title>Edumall - Fake</title>
+	<title>Edumall - Học online 24/7</title>
 	<link rel="stylesheet" href="res/bs/css/bootstrap.min.css">
 	<link rel="stylesheet" href="res/awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="res/css/webstyle.css">
