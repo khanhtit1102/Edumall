@@ -25,7 +25,7 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://luongvantri.htc-it.team';
+$config['base_url'] = 'http://[::1]/Edumall';
 
 /*
 |--------------------------------------------------------------------------
