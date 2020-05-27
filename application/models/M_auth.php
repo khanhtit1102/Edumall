@@ -22,6 +22,7 @@ class M_Auth extends CI_Model
 			foreach ($query->result_array() as $row)
 			{
 				# Check Kích hoạt
+                $ip = $row['last_ip'];
 				$per = $row['permission_user'];
 				$session_user = array(
 					'id_user'=> $row['id_user'],
@@ -32,16 +33,22 @@ class M_Auth extends CI_Model
 					'avatar_user' => $row['avatar_user'],
 					'permission_user' => $row['permission_user'],
 					'coin_user' => $row['coin_user'],
-					);
+                );
 			}
-			if ($per == 0) {
-				$error = 2; 
-			}
+			if (!is_null($ip))
+            {
+                $error = 3;
+            }
 			else{
-				$this->session->set_userdata($session_user);
-				$this->update_login_time($this->session->userdata('id_user'));
-				$error = 1;
-			}
+                if ($per == 0) {
+                    $error = 2;
+                }
+                else{
+                    $this->session->set_userdata($session_user);
+                    $this->update_login_time($this->session->userdata('id_user'));
+                    $error = 1;
+                }
+            }
 		}
 		else{
 			$error = 0;
@@ -52,9 +59,16 @@ class M_Auth extends CI_Model
 	{
 		$time = date('Y-m-d');
 		$this->db->set('last_login', $time);
+		$this->db->set('last_ip', $this->input->ip_address());
 		$this->db->where('id_user', $id_user);
 		$this->db->update('user');
 	}
+    public function clear_last_ip()
+    {
+        $this->db->set('last_ip', null);
+        $this->db->where('id_user', $this->session->userdata('id_user'));
+        $this->db->update('user');
+    }
 	public function register($username, $email, $pass, $type_account, $job_user, $date, $code)
 	{
 		$sql = "SELECT count(id_user) FROM user WHERE email_user = '$email'";

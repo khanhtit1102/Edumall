@@ -100,6 +100,9 @@ class Auth extends CI_Controller {
 			$email = $this->input->post('email');
 			$pass = md5($this->input->post('pass'));
 			$error = $model->login($email, $pass);
+            if ($error == 3) {
+                $this->session->set_flashdata('error', 'Tài khoản của bạn đã được đăng nhập ở nơi khác.<br>Vui lòng đăng xuất tài khoản ở thiết bị trước!');
+            }
 			if ($error == 2) {
 				$this->session->set_flashdata('error', 'Tài khoản của bạn chưa được kích hoạt!<br>- Vui lòng kiểm tra lại hộp thư đến trong Email!');
 			}
@@ -110,11 +113,12 @@ class Auth extends CI_Controller {
 			if ($error == 0){
 				$this->session->set_flashdata('error', 'Tài khoản hoặc mật khẩu không đúng!<br>- Vui lòng nhập lại!');
 			}
-			redirect(base_url('auth/login'));
+
 		}
 		else{
-			redirect(base_url('auth/login'));
+
 		}
+        redirect(base_url('auth/login'));
 	}
 	public function login_fb()
 	{
@@ -333,6 +337,10 @@ class Auth extends CI_Controller {
 	}
 	public function logout()
 	{
+	    // Clear IP on DB
+        $this->load->model('m_auth');
+        $model = new M_Auth();
+        $model->clear_last_ip();
 		// Clear all SESSION value
 		$this->session->sess_destroy();
 		redirect(base_url('auth/login'));
