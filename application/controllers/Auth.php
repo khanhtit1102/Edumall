@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -167,6 +166,7 @@ class Auth extends CI_Controller {
 			$code = $this->generateRandomString();
 
 			// Tạo dữ liệu gửi Email
+            $subject = 'Kích hoạt tài khoản của bạn';
 
 			$link = base_url('auth/request').'?type=active&email='.$email.'&code='.$code;
 			if ($type_account == 2) {
@@ -178,10 +178,10 @@ class Auth extends CI_Controller {
 			// Đã gửi Email
 
 			if ($result == 1) {
-				$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>Hãy kiểm tra lại hộp thư đến trong Email để xác nhận!<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
+				$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>Hãy kiểm tra lại hộp thư đến trong Email để xác nhận!');
 			}
 			if ($result == 0) {
-				$this->session->set_flashdata('error', '<b>Lỗi gửi Email!</b><br>Đây là lỗi của chúng tôi.<br>Liên hệ <a href="mailto:khanhtit113@gmail.com">Admin</a> để báo lỗi.<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
+				$this->session->set_flashdata('error', '<b>Lỗi gửi Email!</b><br>Đây là lỗi của chúng tôi.<br>Liên hệ <a href="mailto:khanhtitictu@gmail.com">Admin</a> để báo lỗi.<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
 			}
 			$this->load->model('m_auth');
 			$model = new M_Auth();
@@ -260,6 +260,7 @@ class Auth extends CI_Controller {
 			$this->load->model('m_auth');
 			$model = new M_Auth();	
 			$result = $model->forgot_pass($email);
+            $subject = 'Yêu cầu đặt lại mật khẩu';
 
 			// Nếu nhập đúng Email có trong hệ thống
 			if ($result == 1) {
@@ -273,10 +274,10 @@ class Auth extends CI_Controller {
 				// Đã gửi Email
 
 				if ($result_email == 1) {
-					$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>Hãy kiểm tra lại hộp thư đến trong Email để xác nhận!<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
+					$this->session->set_flashdata('error', '<b>Gửi Email thành công!</b>!<br>Hãy kiểm tra lại hộp thư đến trong Email để xác nhận!');
 				}
 				if ($result_email == 0) {
-					$this->session->set_flashdata('error', '<b>Lỗi gửi Email!</b><br>Đây là lỗi của chúng tôi.<br>Liên hệ <a href="mailto:khanhtit113@gmail.com">Admin</a> để báo lỗi.<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
+					$this->session->set_flashdata('error', '<b>Lỗi gửi Email!</b><br>Đây là lỗi của chúng tôi.<br>Liên hệ <a href="mailto:khanhtitictu@gmail.com">Admin</a> để báo lỗi.<br>Đây là đường link kích hoạt của bạn: <a href="'.$link.'">'.$link.'</a>');
 				}
 				$model->set_code($email, $code);
 			}
@@ -292,8 +293,8 @@ class Auth extends CI_Controller {
 			'protocol' => 'smtp',
 			'smtp_host' => 'ssl://smtp.googlemail.com',
 			'smtp_port' => 465,
-  			'smtp_user' => 'khanhtitwebdev@gmail.com',
-  			'smtp_pass' => 'jigbqrllpxwgdgdo',
+  			'smtp_user' => 'khanhtit113@gmail.com',
+  			'smtp_pass' => 'nssarqvfqgozvahh',
   			'mailtype' => 'html',
   			'charset' => 'UTF-8',
   			'wordwrap' => TRUE
@@ -301,7 +302,7 @@ class Auth extends CI_Controller {
 		
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
-     	$this->email->from('khanhtitwebdev@gmail.com');
+     	$this->email->from('Quản trị viên hệ thống');
     	$this->email->to($email);
     	$this->email->subject($subject);
     	$this->email->message($message);

@@ -518,31 +518,29 @@ class Admin_Panel extends CI_Controller {
         // Set Header
         $objPHPExcel->getActiveSheet()->SetCellValue('A1', 'ID User');
         $objPHPExcel->getActiveSheet()->SetCellValue('B1', 'Email User');
-        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Pass User');
-        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Name User');
-        $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Job User');
-        $objPHPExcel->getActiveSheet()->SetCellValue('F1', 'Sex User');
-        $objPHPExcel->getActiveSheet()->SetCellValue('G1', 'About User');
-        $objPHPExcel->getActiveSheet()->SetCellValue('H1', 'Permission User');
-        $objPHPExcel->getActiveSheet()->SetCellValue('I1', 'Code User');
-        $objPHPExcel->getActiveSheet()->SetCellValue('J1', 'Coin User');
-        $objPHPExcel->getActiveSheet()->SetCellValue('K1', 'Avatar User');
-        $objPHPExcel->getActiveSheet()->SetCellValue('L1', 'Created Date');
+        $objPHPExcel->getActiveSheet()->SetCellValue('C1', 'Name User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('D1', 'Job User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('E1', 'Sex User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('F1', 'About User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('G1', 'Permission User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('H1', 'Code User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('I1', 'Coin User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('J1', 'Avatar User');
+        $objPHPExcel->getActiveSheet()->SetCellValue('K1', 'Created Date');
         // Set Row
         $rowCount = 2;
         foreach ($empInfo as $element) {
             $objPHPExcel->getActiveSheet()->SetCellValue('A' . $rowCount, $element['id_user']);
             $objPHPExcel->getActiveSheet()->SetCellValue('B' . $rowCount, $element['email_user']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $element['pass_user']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $element['name_user']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $element['job_user']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowCount, $element['sex_user']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('G' . $rowCount, $element['about_user']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowCount, $element['permission_user']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $element['code_user']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('J' . $rowCount, $element['coin_user']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('K' . $rowCount, $element['avatar_user']);
-            $objPHPExcel->getActiveSheet()->SetCellValue('L' . $rowCount, $element['created_date']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('C' . $rowCount, $element['name_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('D' . $rowCount, $element['job_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('E' . $rowCount, $element['sex_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('F' . $rowCount, $element['about_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('G' . $rowCount, $element['permission_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('H' . $rowCount, $element['code_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('I' . $rowCount, $element['coin_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('J' . $rowCount, $element['avatar_user']);
+            $objPHPExcel->getActiveSheet()->SetCellValue('K' . $rowCount, $element['created_date']);
             $rowCount++;
         }
         $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel);
@@ -558,7 +556,7 @@ class Admin_Panel extends CI_Controller {
 			'smtp_host' => 'ssl://smtp.googlemail.com',
 			'smtp_port' => 465,
   			'smtp_user' => 'khanhtit113@gmail.com',
-  			'smtp_pass' => 'wnbkszmhmdamymls',
+  			'smtp_pass' => 'nssarqvfqgozvahh',
   			'mailtype' => 'html',
   			'charset' => 'UTF-8',
   			'wordwrap' => TRUE
@@ -566,7 +564,7 @@ class Admin_Panel extends CI_Controller {
 		
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
-     	$this->email->from('khanhtitwebdev@gmail.com');
+     	$this->email->from('Quản trị viên hệ thống');
     	$this->email->to($email);
     	$this->email->subject($subject);
     	$this->email->message($message);
