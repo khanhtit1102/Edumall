@@ -35,10 +35,11 @@ class M_Auth extends CI_Model
 					'coin_user' => $row['coin_user'],
                 );
 			}
-			if (!is_null($ip))
+if (!is_null($ip))
             {
-                $error = 3;
+$error = 3;  
             }
+			
 			else{
                 if ($per == 0) {
                     $error = 2;

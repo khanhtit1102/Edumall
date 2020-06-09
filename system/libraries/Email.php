@@ -2069,19 +2069,14 @@ class CI_Email {
 		stream_set_timeout($this->_smtp_connect, $this->smtp_timeout);
 		$this->_set_error_message($this->_get_smtp_data());
 
-		if ($this->smtp_crypto === 'tls')
-		{
-			$this->_send_command('hello');
-			$this->_send_command('starttls');
-
-			$crypto = stream_socket_enable_crypto($this->_smtp_connect, TRUE, STREAM_CRYPTO_METHOD_TLS_CLIENT);
-
-			if ($crypto !== TRUE)
-			{
-				$this->_set_error_message('lang:email_smtp_error', $this->_get_smtp_data());
-				return FALSE;
-			}
-		}
+		if ($this->smtp_crypto == 'tls')
+{
+    $this->_send_command('hello');
+    $this->_send_command('starttls');
+    if( strpos( $this->smtp_host, 'ssl://') === FALSE ) {
+      stream_socket_enable_crypto($this->_smtp_connect, TRUE, STREAM_CRYPTO_METHOD_TLS_CLIENT);
+    }
+}
 
 		return $this->_send_command('hello');
 	}

@@ -293,13 +293,14 @@ class Auth extends CI_Controller {
 			'protocol' => 'smtp',
 			'smtp_host' => 'ssl://smtp.googlemail.com',
 			'smtp_port' => 465,
-  			'smtp_user' => 'khanhtit113@gmail.com',
-  			'smtp_pass' => 'nssarqvfqgozvahh',
+  			'smtp_user' => 'khanhnongvan0@gmail.com',
+  			'smtp_pass' => 'ahkxlstejnrhlhqv',
   			'mailtype' => 'html',
   			'charset' => 'UTF-8',
-  			'wordwrap' => TRUE
+  			'wordwrap' => TRUE,
+                        'smtp_crypto' => 'tls'
   		);
-		
+
 		$this->load->library('email', $config);
 		$this->email->set_newline("\r\n");
      	$this->email->from('Quản trị viên hệ thống');

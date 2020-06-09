@@ -275,4 +275,5 @@ switch (ENVIRONMENT)
  *
  * And away we go...
  */
+date_default_timezone_set('UTC');
 require_once BASEPATH.'core/CodeIgniter.php';
